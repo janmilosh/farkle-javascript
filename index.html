@@ -26,73 +26,60 @@
 
 <div class="row">
 	<div class="twelve columns">
-		<h1 class="site-title">Farkle</h2>
+		<h1 class="site-title">Farkle for Two</h2>
 	</div>
 </div>
 <div class="row">
-	<div class="seven columns">
+	<div class="seven columns offset-by-two">
 		<div class="die-container">
-			<img src = "images/1.png" alt = "die">
-			<img src = "images/2.png" alt = "die">
-			<img src = "images/3.png" alt = "die">
-			<img src = "images/4.png" alt = "die">
-			<img src = "images/5.png" alt = "die">
-			<img src = "images/6.png" alt = "die">
+			<img src = "images/1.png" alt = "die" id="die1" data-scored="false" data-clicked="false" data-dieValue="1">
+			<img src = "images/2.png" alt = "die" id="die2" data-scored="false" data-clicked="false" data-dieValue="2">
+			<img src = "images/3.png" alt = "die" id="die3" data-scored="false" data-clicked="false" data-dieValue="3">
+			<img src = "images/4.png" alt = "die" id="die4" data-scored="false" data-clicked="false" data-dieValue="4">
+			<img src = "images/5.png" alt = "die" id="die5" data-scored="false" data-clicked="false" data-dieValue="5">
+			<img src = "images/6.png" alt = "die" id="die6" data-scored="false" data-clicked="false" data-dieValue="6">
 		</div>
 	</div>
-	<div class="five columns">
-		<div class="row">
-			<div class="four columns mobile-twelve button-container">
-				<h2><span class="roll-button"><a href = "#" onclick = "rollDice(player[1].dice)" id = "roll-button1">Roll Dice</a></span>
-				<span class = "bank-button"><a href = "#" onclick = "" id = "bank-button1">Bank Score</a></span></h2>
-			</div>
-			<div class="eight columns mobile-twelve buttons">	
-				<p class = "results">Total Score: <span id = "your-hand"></span><span id = "your-hand-2"></span><span id = "your-rank"></span><span id = "your-suit"></span></p>
-				<p class = "results2" >This round: <span id = "your-win"></span><span id = "your-total"></span></p>
-			</div>
-			
-		</div>
+	<div class="two columns button-container end">
+		<h2><span class="roll-button"><a href = "#" onclick = "rollDice(playerDice)" id = "roll-button">Roll Dice</a></span>
+		<span class = "bank-button"><a href = "#" onclick = "" id = "bank-button">Bank Score</a></span></h2>
 	</div>
 </div>
 <div class="row">
-	<div class="seven columns">
-		<div class="die-container">
-			<img src = "images/7.png" alt = "die">
-			<img src = "images/8.png" alt = "die">
-			<img src = "images/9.png" alt = "die">
-			<img src = "images/10.png" alt = "die">
-			<img src = "images/11.png" alt = "die">
-			<img src = "images/12.png" alt = "die">
-		</div>
-	</div>
-	<div class="five columns">
-		<div class="row">
-			<div class="four columns mobile-twelve button-container">
-				<h2><span class="roll-button"><a href = "#" onclick = "rollDice(player[2].dice)" id = "roll-button2">Roll Dice</a></span>
-				<span class = "bank-button"><a href = "#" onclick = "" id = "bank-button2">Bank Score</a></span></h2>
-			</div>
-			<div class="eight columns mobile-twelve">		
-				<p class = "results" >Total score: <span id = "my-hand"></span><span id = "my-hand-2"></span><span id = "my-rank"></span><span id = "my-suit"></span></p>
-				<p class = "results2" >This round: <span id = "my-win"></span><span id = "my-total"></span></p>
-			</div>
-		</div>
+	<div class="nine columns offset-by-two">
+		<p class="message">Player1 now rolling: <span class="score"><span id="roll-score">0</span> points</span></p>
+			<p id="instructions"><span><a href = "#" onclick = "" id="personalize">Click here to add your names</a></span> - then click "Roll Dice" to start.</p>
 	</div>
 </div>
 <div class="row">
-	<div class="five columns offset-by-seven">
+	<div class="three columns offset-by-two player1">
+		<div class="panel">
+			<h2>Player1</h2>
+			<p>Total Score: <span id = "player1-total">0</span></p>
+			<p>This round: <span id = "player1-round">0</span></p>
+		</div>
+	</div>
+	<div class="three columns player2">
+		<div class="panel">
+			<h2>Player2</h2>
+			<p>Total Score: <span id = "player2-total">0</span></p>
+			<p>This round: <span id = "player2-round">0</span></p>
+		</div>
+	</div>
+	<div class="two columns offset-by-one end">
 		<p class="reset"><a href="#" onclick="reloadPage()">New Game</a></p>
 	</div>
 </div>
 <div class="row">
 	<div class="eight columns centered">
-	<p class = "about">Instructions for playing Farkle.</p>
+		<p class = "rules">Instructions for playing Farkle.</p>
 	</div>
 </div>
-<div class="row full-width">
+<footer class="row full-width">
 	<div class="six columns mobile-two">
 		<p class="promo">Built by <a href="http://janmilosh.com" target="_blank">Jan Milosh</a></p>
 	</div>
-</div>
+</footer>
 <!-- Included JS Files (Compressed) -->
 <script src="javascripts/foundation.min.js"></script>
 

@@ -2,27 +2,60 @@ body {
 	background: #000;
 	background: url('../images/moulin.png');
 }
+a {
+	color: #7848fe;
+	text-decoration: none;
+}
+a:hover, a:visited, a:focus {
+	color: #7848fe;
+	text-decoration: underline;
+}
 .row.full-width {width: 1220px;}
 .die-container {
 	max-width: 540px;
-	margin:	0 auto;
+	margin-bottom: 20px;
 }
 .button-container {
 }
 img {
 	margin: 15px 3px;
 }
-a#roll-button1, a#roll-button2 {
-	background: #7D15B3;
+/*img:hover {
+	opacity: 0.8;
+}
+img.faded:hover {
+	opacity: 0.6;
+}
+.faded {
+  opacity: 0.6;
+}*/
+a#roll-button {
+	background: #6F38C2;
 	color: white;
 	padding: 5px 6px;
 	border-radius: 5px;
 }
-a#bank-button1, a#bank-button2 {
-	background: #45881C;
+a#bank-button {
+	background: #62A837;
 	color: white;
 	padding: 5px 6px;
 	border-radius: 5px;
+}
+a#roll-button:hover, a#bank-button:hover, .reset a:hover, a#roll-button:visited, a#bank-button:visited, .reset a:visited {
+	text-decoration: none;
+	color: #fff;
+}
+a#roll-button:hover {
+	background: #5D2AAA;
+}
+a#bank-button:hover {
+	background: #589930
+}
+.reset a:hover {
+	background: #444;
+}
+.reset {
+	margin-top: 100px;
 }
 .reset a {
 	background: #4d4d4d;
@@ -34,7 +67,7 @@ a#bank-button1, a#bank-button2 {
 	text-align: left;
 	font-size: 18px;
 }
-p.reset {
+p.reset, p#personalize {
 	text-align: left;
 	font-size: 18px;
 	font-weight: bold;
@@ -43,10 +76,12 @@ h1.site-title {
 	text-align: center;
 	color: #fff;
 	clear: both;
-	margin: 40px 0;
+	margin: 32px 0;
+	font-size: 36px;
 }
-h2 {color: #fff;
-	font-size: 38px;
+.panel h2 {color: #fff;
+	font-size: 24px;
+	margin-top: 0;
 }
 h2 span.bank-button {
 	text-align: left;	
@@ -54,41 +89,42 @@ h2 span.bank-button {
 .button-container h2 {
 	margin-top: 5px;
 }
+.panel {
+	padding: 15px 15px 5px;
+	background: #222;
+	border-radius: 5px;
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
+}
+.score {
+	padding: 5px 8px;
+	background: #282828;
+	color: #5FF900;
+	border-radius: 3px;
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
+}
 p {
-	line-height: 1.5;
+	line-height: 1.2;
 }
-p.results {
-	margin: 15px 0 0;
+p.message, p#instructions {
+	color: #fff;
+	font-size: 24px;
+	margin-left: 15px;
+}
+.player1 p, .player2 p {
 	color: #5FF900;
 	font-size: 20px;
+	margin-bottom: 8px;
 }
-p.results2 { 
-	color: #5FF900;
-	font-size: 20px;
-	margin-bottom: 15px;
-}
-p.about {
+p.rules {
 	font-size: 15px;
 	color: #bbb;
-	background: #282828;
-	margin-top: 60px;
+	margin-top: 30px;
 	padding: 8px 12px;
 	border-radius: 5px;
-}
-.die-holder {
-	width: 379px;
-	margin: 0 auto;
-}
-.promo a {
-	color: #5FF900;
-	text-decoration: none;
-}
-.promo a:hover {
-	color: #7848fe;
-	text-decoration: underline;
+	border: 1px solid #444;
 }
 p.promo {
-	color: #5FF900;
+	color: #7848fe;
 	margin: 20px 0;
 }
 p.promo {
@@ -96,5 +132,16 @@ p.promo {
 }
 
 @media only screen and (max-width: 700px) {
-	h1 {font-size: 34px;}
+	h1 {
+		font-size: 30px;
+	}
+	.die-container {
+		margin-bottom: 0;
+	}
+	h1.site-title {
+		margin: 20px 0 5px;
+	}
+	.reset {
+		margin-top: 30px;
+	}
 }

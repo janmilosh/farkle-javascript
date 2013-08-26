@@ -6,19 +6,15 @@
 //                Create two player objects
 //             Initial scores are set to zero
 // ---------------------------------------------------------
-var player = [];										// create player objects
-player[1] = {};
-player[2] = {};
-player[1].score = 0;					 // set initial values to zero
-player[2].score = 0;
-player[1].roundScore = 0;
-player[2].roundScore = 0;
-player[1].rollScore = 0;
-player[2].rollScore = 0;
-//player1.turn = true;		// player1 rolls first
-//player2.turn = false;
-player[1].dice = [false,true,false,true,false,true];	// scoring arrays
-player[2].dice = [false,false,false,false,false,false];
+var player1 = {};
+var player2 = {};
+player1.score = 0;						 // set initial values to zero
+player2.score = 0;
+player1.roundScore = 0;
+player2.roundScore = 0;
+player1.rollScore = 0;
+player2.rollScore = 0;
+var playerDice = [false,true,false,true,false,true];	// scoring array
 function rollDice(diceArray) {
 	for (var i = 0; i < diceArray.length; i++) {
 		if (diceArray[i] === false) {
@@ -30,12 +26,18 @@ function rollDice(diceArray) {
 	console.log(diceArray.length);
 }
 $(document).ready(function(){
-	$("p, li, h1, h2, h3, h4").click(function() {
-    	$(this).hide();
-    });
+	$("img").click(function() {
+    $(this).toggleClass("faded").fadeTo("fast", 0.7);
+  });
+$("img.faded").click(function() {
+    $(this).fadeIn("fast");
+  });	
+	
   	
-  	
-	});
+});
 function reloadPage() {
 	location.reload(true);
 }
+//window.onbeforeunload = function() {
+//  return "You are about to quit and start a new game.";
+//};
