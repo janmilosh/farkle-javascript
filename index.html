@@ -48,7 +48,7 @@
 <div class="row">
 	<div class="nine columns offset-by-two">
 		<p class="message"><span class="player1-name">Player1</span> now rolling: <span class="score"><span id="roll-score">0</span> points</span></p>
-			<p id="instructions"><span><a href = "#" onclick = "addNames()" id="personalize">Click here to add your names</a></span> - then click "Roll Dice" to start.</p>
+			<p id="instructions"><span><a href = "#" onclick = "addNames()" id="personalize">Click here to add your <span id="singular-plural">names</span></a></span> - then click "Roll Dice" to start.</p>
 	</div>
 </div>
 <div class="row">
@@ -66,9 +66,9 @@
 			<p>This round: <span id = "player2-round">0</span></p>
 		</div>
 	</div>
-	<div class="two columns offset-by-one button-container end">
-		<h2><span class="one-player"><a href = "#" onclick = "onePlayer()" id="one-player" data-one = "false">One Player</a></span>
-		<span class = "reset"><a href = "#" onclick = "reloadPage()" id="reset">New Game</a></span></h2>
+	<div class="two columns button-container offset-by-one end">
+		<h2><span class = "reset"><a href = "#" onclick = "reloadPage()" id="reset">New Game</a></span><span class="one-player"><a href = "#" onclick = "onePlayer()" id="one-player" data-one = "false">One Player</a></span>
+		</h2>
 	</div>
 </div>
 <div class="row">

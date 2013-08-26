@@ -1,4 +1,4 @@
-#Farkle Game for Two Players
+#Farkle Game for One or Two Players
 
 by Jan Milosh
 

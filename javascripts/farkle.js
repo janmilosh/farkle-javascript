@@ -14,7 +14,7 @@ player1.roundScore = 0;
 player2.roundScore = 0;
 player1.rollScore = 0;
 player2.rollScore = 0;
-var playerDice = [false,true,false,true,false,true];	// scoring array
+var playerDice = [false,false,false,false,false,false];	// scoring array
 // ---------------------------------------------------------
 //             toggle instructions on click
 // ---------------------------------------------------------
@@ -22,24 +22,39 @@ $(function() {
 	$("#rules").click(function(){
 		$("aside").slideToggle("slow", function(){
 			$('#rules').text($(this).is(':hidden')? 'Show instructions' : 'Hide instructions');
-			});
 		});
+	});
 }); 
 // ---------------------------------------------------------
-//      function to give with instructions during play
+//      function to give instructions during play
 // ---------------------------------------------------------
 function instruct() {
 
 }
+// ---------------------------------------------------------
+//       function to set single player values
+// ---------------------------------------------------------
+
+function onePlayer() {
+	player2.name = "The House";
+	$(document).ready(function() {	
+		$("#singular-plural").text("name");
+		$(".player2-name").text(player2.name);
+		$("#one-player").fadeOut();
+	});
+}
+
 // ---------------------------------------------------------
 //       function to allow players to personalize game
 //                   by adding their names
 // ---------------------------------------------------------
 function addNames() {
 		player1.name = prompt("Player one: please enter your name","Player one name");
-		player2.name = prompt("Player two: please enter your name","Player two name");
 		$(".player1-name").text(player1.name);
-		$(".player2-name").text(player2.name);
+		if (player2.name !== "The House") {
+			player2.name = prompt("Player two: please enter your name","Player two name");
+			$(".player2-name").text(player2.name);
+		}
 }
 // ---------------------------------------------------------
 //       function for ending game with page reload
@@ -57,11 +72,11 @@ function reloadPage() {
 // ---------------------------------------------------------
 function selectDice() {
 	$("img").click(function() {
-	    $(this).toggleClass("faded").fadeTo("fast", 0.7);
-	  });
+	  $(this).toggleClass("faded").fadeTo("fast", 0.7);
+	});
 	$("img.faded").click(function() {
-	    $(this).fadeIn("fast");
-	  });
+	  $(this).fadeIn("fast");
+	});
 }
 // ---------------------------------------------------------
 //                 function to roll dice
@@ -79,7 +94,7 @@ function rollDice(diceArray) {
 // ---------------------------------------------------------
 //                       Begin game
 // ---------------------------------------------------------
-$(function() {
+$(document).ready(function() {
 	
-		
+
 });
