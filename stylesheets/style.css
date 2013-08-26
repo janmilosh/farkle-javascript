@@ -64,6 +64,7 @@ img.faded:hover {
 .roll-button, .bank-button, .reset, .one-player {
 	text-align: left;
 	font-size: 18px;
+	white-space:nowrap;
 }
 p#personalize {
 	text-align: left;
@@ -85,8 +86,12 @@ h1.site-title {
 .button-container h2 {
 	margin-top: 5px;
 }
+.add-margin {
+	margin-top: 25px;
+}
 .panel {
 	padding: 15px 15px 5px;
+	margin-bottom: 17px;
 	background: #222;
 	border-radius: 5px;
 	box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
@@ -106,7 +111,7 @@ aside p {
 }
 p.show-hide {
 	font-size: 20px;
-	margin: 30px 15px;
+	margin: 10px 15px 30px;
 }
 p.message, p#instructions {
 	color: #fff;
@@ -152,5 +157,8 @@ p.promo {
 	}
 	p.promo {
 		margin: 20px 0;
+	}
+	.add-margin {
+		margin-top: 0;
 	}
 }

@@ -41,33 +41,37 @@
 		</div>
 	</div>
 	<div class="two columns button-container end">
-		<h2><span class="roll-button"><a href = "#" onclick = "rollDice(playerDice)">Roll Dice</a></span>
-		<span class = "bank-button"><a href = "#" onclick = "">Bank Score</a></span></h2>
+		<h2>
+			<span class="roll-button"><a href="#" onclick="rollDice(playerDice)">Roll Dice</a></span>
+			<span class="bank-button"><a href="#" onclick="">Bank Score</a></span>
+		</h2>
 	</div>
 </div>
 <div class="row">
 	<div class="nine columns offset-by-two">
 		<p class="message"><span class="player1-name">Player1</span> now rolling: <span class="score"><span id="roll-score">0</span> points</span></p>
-			<p id="instructions"><span><a href = "#" onclick = "addNames()" id="personalize">Click here to add your <span id="singular-plural">names</span></a></span> - then click "Roll Dice" to start.</p>
+			<p id="instructions"><span><a href="#" onclick="addNames()" id="personalize">Click here to add your <span id="singular-plural">names</span></a></span> - then click "Roll Dice" to start.</p>
 	</div>
 </div>
 <div class="row">
 	<div class="three columns offset-by-two player1">
 		<div class="panel">
 			<h2 class="player1-name">Player1</h2>
-			<p>Total Score: <span id = "player1-total">0</span></p>
-			<p>This round: <span id = "player1-round">0</span></p>
+			<p>Total Score: <span id="player1-total">0</span></p>
+			<p>This round: <span id="player1-round">0</span></p>
 		</div>
 	</div>
 	<div class="three columns player2">
 		<div class="panel">
 			<h2 class="player2-name">Player2</h2>
-			<p>Total Score: <span id = "player2-total">0</span></p>
-			<p>This round: <span id = "player2-round">0</span></p>
+			<p>Total Score: <span id="player2-total">0</span></p>
+			<p>This round: <span id="player2-round">0</span></p>
 		</div>
 	</div>
-	<div class="two columns button-container offset-by-one end">
-		<h2><span class = "reset"><a href = "#" onclick = "reloadPage()" id="reset">New Game</a></span><span class="one-player"><a href = "#" onclick = "onePlayer()" id="one-player" data-one = "false">One Player</a></span>
+	<div class="two columns button-container add-margin offset-by-one end">
+		<h2>
+			<span class="reset"><a href="#" onclick="reloadPage()" id="reset">New Game</a></span>
+			<span class="one-player"><a href="#" onclick="onePlayer()" id="one-player">One Player</a></span>
 		</h2>
 	</div>
 </div>

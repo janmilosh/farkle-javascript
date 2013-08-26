@@ -34,7 +34,6 @@ function instruct() {
 // ---------------------------------------------------------
 //       function to set single player values
 // ---------------------------------------------------------
-
 function onePlayer() {
 	player2.name = "The House";
 	$(document).ready(function() {	
@@ -43,7 +42,6 @@ function onePlayer() {
 		$("#one-player").fadeOut();
 	});
 }
-
 // ---------------------------------------------------------
 //       function to allow players to personalize game
 //                   by adding their names
