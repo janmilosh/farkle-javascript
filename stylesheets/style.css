@@ -2,6 +2,9 @@ body {
 	background: #000;
 	background: url('../images/moulin.png');
 }
+aside {
+	display: none;
+}
 a {
 	color: #7848fe;
 	text-decoration: none;
@@ -29,45 +32,42 @@ img.faded:hover {
 .faded {
   opacity: 0.6;
 }*/
-a#roll-button {
+.roll-button a {
 	background: #6F38C2;
 	color: white;
 	padding: 5px 6px;
 	border-radius: 5px;
 }
-a#bank-button {
+.bank-button a {
 	background: #62A837;
 	color: white;
 	padding: 5px 6px;
 	border-radius: 5px;
 }
-a#roll-button:hover, a#bank-button:hover, .reset a:hover, a#roll-button:visited, a#bank-button:visited, .reset a:visited {
-	text-decoration: none;
-	color: #fff;
-}
-a#roll-button:hover {
-	background: #5D2AAA;
-}
-a#bank-button:hover {
-	background: #589930
-}
-.reset a:hover {
-	background: #444;
-}
-.reset {
-	margin-top: 100px;
-}
-.reset a {
+.reset a, .one-player a {
 	background: #4d4d4d;
 	color: white;
 	padding: 5px 6px;
 	border-radius: 5px;
 }
-.roll-button, .bank-button {
+.roll-button a:hover {
+	background: #5D2AAA;
+}
+.bank-button a:hover {
+	background: #589930
+}
+.reset a:hover, .one-player a:hover {
+	background: #444;
+}
+.roll-button a:hover, .bank-button a:hover, .reset a:hover, .one-player a:hover, .roll-button a:visited, .bank-button a:visited, .reset a:visited, .one-player a:visited {
+	text-decoration: none;
+	color: #fff;
+}
+.roll-button, .bank-button, .reset, .one-player {
 	text-align: left;
 	font-size: 18px;
 }
-p.reset, p#personalize {
+p#personalize {
 	text-align: left;
 	font-size: 18px;
 	font-weight: bold;
@@ -83,9 +83,7 @@ h1.site-title {
 	font-size: 24px;
 	margin-top: 0;
 }
-h2 span.bank-button {
-	text-align: left;	
-}
+
 .button-container h2 {
 	margin-top: 5px;
 }
@@ -105,6 +103,13 @@ h2 span.bank-button {
 p {
 	line-height: 1.2;
 }
+aside p {
+	font-style: normal;
+}
+p.show-hide {
+	font-size: 20px;
+	margin: 30px 15px;
+}
 p.message, p#instructions {
 	color: #fff;
 	font-size: 24px;
@@ -118,20 +123,20 @@ p#instructions {
 	font-size: 20px;
 	margin-bottom: 8px;
 }
-p.rules {
+.rules p {
 	font-size: 15px;
 	color: #bbb;
-	margin-top: 30px;
+}
+.rules  {
+	background: #111;
 	padding: 8px 12px;
 	border-radius: 5px;
 	border: 1px solid #444;
 }
 p.promo {
 	color: #7848fe;
-	margin: 20px 0;
-}
-p.promo {
-	text-align: left;
+	text-align: center;
+	margin: 100px 0 20px;
 }
 
 @media only screen and (max-width: 700px) {
@@ -146,5 +151,8 @@ p.promo {
 	}
 	.reset {
 		margin-top: 30px;
+	}
+	p.promo {
+		margin: 20px 0;
 	}
 }

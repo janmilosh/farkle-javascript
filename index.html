@@ -24,11 +24,11 @@
 </head>
 <body>
 
-<div class="row">
+<header class="row">
 	<div class="twelve columns">
-		<h1 class="site-title">Farkle for Two Players</h2>
+		<h1 class="site-title">Farkle for One or Two Players</h2>
 	</div>
-</div>
+</header>
 <div class="row">
 	<div class="seven columns offset-by-two">
 		<div class="die-container">
@@ -41,43 +41,53 @@
 		</div>
 	</div>
 	<div class="two columns button-container end">
-		<h2><span class="roll-button"><a href = "#" onclick = "rollDice(playerDice)" id = "roll-button">Roll Dice</a></span>
-		<span class = "bank-button"><a href = "#" onclick = "" id = "bank-button">Bank Score</a></span></h2>
+		<h2><span class="roll-button"><a href = "#" onclick = "rollDice(playerDice)">Roll Dice</a></span>
+		<span class = "bank-button"><a href = "#" onclick = "">Bank Score</a></span></h2>
 	</div>
 </div>
 <div class="row">
 	<div class="nine columns offset-by-two">
-		<p class="message">Player1 now rolling: <span class="score"><span id="roll-score">0</span> points</span></p>
-			<p id="instructions"><span><a href = "#" onclick = "" id="personalize">Click here to add your names</a></span> - then click "Roll Dice" to start.</p>
+		<p class="message"><span class="player1-name">Player1</span> now rolling: <span class="score"><span id="roll-score">0</span> points</span></p>
+			<p id="instructions"><span><a href = "#" onclick = "addNames()" id="personalize">Click here to add your names</a></span> - then click "Roll Dice" to start.</p>
 	</div>
 </div>
 <div class="row">
 	<div class="three columns offset-by-two player1">
 		<div class="panel">
-			<h2>Player1</h2>
+			<h2 class="player1-name">Player1</h2>
 			<p>Total Score: <span id = "player1-total">0</span></p>
 			<p>This round: <span id = "player1-round">0</span></p>
 		</div>
 	</div>
 	<div class="three columns player2">
 		<div class="panel">
-			<h2>Player2</h2>
+			<h2 class="player2-name">Player2</h2>
 			<p>Total Score: <span id = "player2-total">0</span></p>
 			<p>This round: <span id = "player2-round">0</span></p>
 		</div>
 	</div>
-	<div class="two columns offset-by-one end">
-		<p class="reset"><a href="#" onclick="reloadPage()">New Game</a></p>
+	<div class="two columns offset-by-one button-container end">
+		<h2><span class="one-player"><a href = "#" onclick = "onePlayer()" id="one-player" data-one = "false">One Player</a></span>
+		<span class = "reset"><a href = "#" onclick = "reloadPage()" id="reset">New Game</a></span></h2>
 	</div>
 </div>
 <div class="row">
 	<div class="eight columns centered">
-		<p class = "rules">Instructions for playing Farkle.</p>
+		<p class="show-hide"><a href="#" id="rules">Show Instructions</a></p>
 	</div>
 </div>
-<footer class="row full-width">
-	<div class="six columns mobile-two">
-		<p class="promo">Built by <a href="http://janmilosh.com" target="_blank">Jan Milosh</a></p>
+<div class="row">
+	<aside class="eight columns centered">
+		<div class="rules">
+			<p>Instructions for playing Farkle.</p>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+	</div>
+	</aside>
+</div>
+<footer class="row">
+	<div class="four columns centered">
+		<p class="promo">&copy;2013 <a href="http://janmilosh.com" target="_blank">Jan Milosh</a></p>
 	</div>
 </footer>
 <!-- Included JS Files (Compressed) -->

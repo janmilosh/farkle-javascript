@@ -1,5 +1,5 @@
 // 
-//       Farkle game for two players, written in Ruby
+//               Farkle game for two players
 //           by Jan Milosh (http://janmilosh.com)
 //
 // ---------------------------------------------------------
@@ -15,6 +15,57 @@ player2.roundScore = 0;
 player1.rollScore = 0;
 player2.rollScore = 0;
 var playerDice = [false,true,false,true,false,true];	// scoring array
+// ---------------------------------------------------------
+//             toggle instructions on click
+// ---------------------------------------------------------
+$(function() {
+	$("#rules").click(function(){
+		$("aside").slideToggle("slow", function(){
+			$('#rules').text($(this).is(':hidden')? 'Show instructions' : 'Hide instructions');
+			});
+		});
+}); 
+// ---------------------------------------------------------
+//      function to give with instructions during play
+// ---------------------------------------------------------
+function instruct() {
+
+}
+// ---------------------------------------------------------
+//       function to allow players to personalize game
+//                   by adding their names
+// ---------------------------------------------------------
+function addNames() {
+		player1.name = prompt("Player one: please enter your name","Player one name");
+		player2.name = prompt("Player two: please enter your name","Player two name");
+		$(".player1-name").text(player1.name);
+		$(".player2-name").text(player2.name);
+}
+// ---------------------------------------------------------
+//       function for ending game with page reload
+//            prompt to make sure this is ok
+// ---------------------------------------------------------
+function reloadPage() {
+	location.reload(true);
+}
+//window.onbeforeunload = function() {
+//  return "You are about to quit and start a new game.";
+//};
+// ---------------------------------------------------------
+//         function for selecting dice to score
+//		and update score for the roll with each selection
+// ---------------------------------------------------------
+function selectDice() {
+	$("img").click(function() {
+	    $(this).toggleClass("faded").fadeTo("fast", 0.7);
+	  });
+	$("img.faded").click(function() {
+	    $(this).fadeIn("fast");
+	  });
+}
+// ---------------------------------------------------------
+//                 function to roll dice
+// ---------------------------------------------------------
 function rollDice(diceArray) {
 	for (var i = 0; i < diceArray.length; i++) {
 		if (diceArray[i] === false) {
@@ -25,19 +76,10 @@ function rollDice(diceArray) {
 	}
 	console.log(diceArray.length);
 }
-$(document).ready(function(){
-	$("img").click(function() {
-    $(this).toggleClass("faded").fadeTo("fast", 0.7);
-  });
-$("img.faded").click(function() {
-    $(this).fadeIn("fast");
-  });	
+// ---------------------------------------------------------
+//                       Begin game
+// ---------------------------------------------------------
+$(function() {
 	
-  	
+		
 });
-function reloadPage() {
-	location.reload(true);
-}
-//window.onbeforeunload = function() {
-//  return "You are about to quit and start a new game.";
-//};
