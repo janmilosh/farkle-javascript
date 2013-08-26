@@ -110,6 +110,9 @@ p.message, p#instructions {
 	font-size: 24px;
 	margin-left: 15px;
 }
+p#instructions {
+	margin-bottom: 25px;
+}
 .player1 p, .player2 p {
 	color: #5FF900;
 	font-size: 20px;
