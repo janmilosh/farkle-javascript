@@ -109,6 +109,10 @@ p {
 aside p {
 	font-style: normal;
 }
+#debug p{
+	color: orange;
+	font-size: 22px;
+}
 p.show-hide {
 	font-size: 20px;
 	margin: 10px 15px 30px;
@@ -121,6 +125,7 @@ p.message, p#instructions {
 }
 p#instructions {
 	margin-bottom: 25px;
+	color: orange;
 }
 .player1 p, .player2 p {
 	color: #5FF900;
