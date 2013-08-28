@@ -74,7 +74,6 @@ function addNames() {
 	} else {
 		$("#instructions").text(player2.name + ": start your round by rolling the dice.");
 	}
-
 	$(".player1-name").text(player1.name);
 	$("#current-name").text(player1.name);
 	$(".player2-name").text(player2.name);
@@ -94,12 +93,15 @@ function reloadPage() {
 //		and update score for the roll with each selection
 // ---------------------------------------------------------
 function selectDice() {
+	$(this).data("number", 1);
 	$("img").click(function() {
-	  $(this).toggleClass("faded").fadeTo("fast", 0.7);
-	});
-	$("img.faded").click(function() {
-	  $(this).fadeIn("fast");
-	});
+    	$(this).toggleClass("faded");
+    	//go out and evaluate now
+    	var theId = $(this).attr("id");
+    	var theNumber = $(this).data("number")
+    	$("#debug").append("<p>Clicked: " +theId+ ", rolled a " +diceArray[theNumber-1] +"</p>"); 	//for the case of player clicking roll dice before entering names
+
+  }); 	
 }
 // ---------------------------------------------------------
 //              function to update dice images
@@ -111,17 +113,17 @@ function updateImage() {
 		if (diceArray[i] !== false && diceArray[i] !== true) {
 			switch (diceArray[i]) {									//update images for only dice
 				case 1: dieImage = "images/1.png";		//that were just rolled
-					break;
+								break;
 				case 2: dieImage = "images/2.png";
-					break;
+								break;
 				case 3: dieImage = "images/3.png";
-					break;
+								break;
 				case 4: dieImage = "images/4.png";
-					break;
+								break;
 				case 5: dieImage = "images/5.png";
-					break;
+								break;
 				case 6: dieImage = "images/6.png";
-					break;
+								break;
 			}
 			dieId = "#die" + (i + 1);
 			$(dieId).attr("src", dieImage);
@@ -130,7 +132,7 @@ function updateImage() {
 	$("#instructions").text("Select scoring dice and roll, or bank to end round.")
 
 	$("#debug").append("<p>in updateImage: " + diceArray[0]+", "+diceArray[1]+", "+diceArray[2]+", "+diceArray[3]+", "+diceArray[4]+", "+diceArray[5]+"</p>");
-	
+	selectDice();
 }
 // ---------------------------------------------------------
 //                 function to roll dice

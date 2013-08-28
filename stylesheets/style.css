@@ -20,16 +20,11 @@ a:hover, a:visited, a:focus {
 }
 img {
 	margin: 15px 3px;
-}
-/*img:hover {
-	opacity: 0.8;
-}
-img.faded:hover {
-	opacity: 0.6;
+	opacity: 1;
 }
 .faded {
-  opacity: 0.6;
-}*/
+	opacity: 0.7;
+}
 .roll-button a {
 	background: #6F38C2;
 	color: white;
@@ -112,7 +107,8 @@ aside p {
 }
 #debug p{
 	color: orange;
-	font-size: 22px;
+	font-size: 16px;
+	margin-bottom: 10px;
 }
 p.show-hide {
 	font-size: 20px;

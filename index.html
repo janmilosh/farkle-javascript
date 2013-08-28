@@ -30,14 +30,16 @@
 	</div>
 </header>
 <div class="row">
+	<div style="position: absolute; left:10px; top:10px;" id="debug">
+	</div>
 	<div class="seven columns offset-by-two">
 		<div class="die-container">
-			<img src="images/1.png" alt="die" id="die1">
-			<img src="images/2.png" alt="die" id="die2">
-			<img src="images/3.png" alt="die" id="die3">
-			<img src="images/4.png" alt="die" id="die4">
-			<img src="images/5.png" alt="die" id="die5">
-			<img src="images/6.png" alt="die" id="die6">
+			<img src="images/1.png" alt="die" id="die1" data-number="1">
+			<img src="images/2.png" alt="die" id="die2" data-number="2">
+			<img src="images/3.png" alt="die" id="die3" data-number="3">
+			<img src="images/4.png" alt="die" id="die4" data-number="4">
+			<img src="images/5.png" alt="die" id="die5" data-number="5">
+			<img src="images/6.png" alt="die" id="die6" data-number="6">
 		</div>
 	</div>
 	<div class="two columns button-container end">
@@ -75,11 +77,6 @@
 			<span class="reset"><a href="#" onclick="reloadPage()" id="reset">New Game</a></span>
 			<span class="one-player"><a href="#" onclick="onePlayer()" id="one-player">One Player</a></span>
 		</h2>
-	</div>
-</div>
-<div class="row">
-	<div id="debug" class="eight columns centered">
-		<p >Debug messages:</p>
 	</div>
 </div>
 <div class="row">
