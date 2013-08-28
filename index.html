@@ -32,18 +32,18 @@
 <div class="row">
 	<div class="seven columns offset-by-two">
 		<div class="die-container">
-			<img src="images/1.png" alt="die" id="die1" data-location="1" data-scored="false" data-clicked="false" data-dieValue="1">
-			<img src="images/2.png" alt="die" id="die2" data-location="2" data-scored="false" data-clicked="false" data-dieValue="2">
-			<img src="images/3.png" alt="die" id="die3" data-location="3" data-scored="false" data-clicked="false" data-dieValue="3">
-			<img src="images/4.png" alt="die" id="die4" data-location="4" data-scored="false" data-clicked="false" data-dieValue="4">
-			<img src="images/5.png" alt="die" id="die5" data-location="5" data-scored="false" data-clicked="false" data-dieValue="5">
-			<img src="images/6.png" alt="die" id="die6" data-location="6" data-scored="false" data-clicked="false" data-dieValue="6">
+			<img src="images/1.png" alt="die" id="die1">
+			<img src="images/2.png" alt="die" id="die2">
+			<img src="images/3.png" alt="die" id="die3">
+			<img src="images/4.png" alt="die" id="die4">
+			<img src="images/5.png" alt="die" id="die5">
+			<img src="images/6.png" alt="die" id="die6">
 		</div>
 	</div>
 	<div class="two columns button-container end">
 		<h2>
-			<span class="roll-button"><a href="#" id="roll-button" onclick="firstRoll()">Roll Dice</a></span>
-			<span class="bank-button"><a href="#" id="bank-button">Bank Score</a></span>
+			<span class="roll-button"><a href="#" id="roll-button" onclick="rollDice()">Roll Dice</a></span>
+			<span class="bank-button"><a href="#" id="bank-button" onclick="bankScore()">Bank Score</a></span>
 		</h2>
 	</div>
 </div>
@@ -57,17 +57,17 @@
 	<div class="three columns offset-by-two player1">
 		<div class="panel">
 			<h2 class="player1-name">Player One</h2>
-			<p>Total Score: <span id="player1-total">0</span></p>
-			<p>This round: <span id="player1-round">0</span></p>
 			<p>Last roll: <span id="player1-roll">0</span></p>
+			<p>This round: <span id="player1-round">0</span></p>			
+			<p>Total Score: <span id="player1-total">0</span></p>
 		</div>
 	</div>
 	<div class="three columns player2">
 		<div class="panel">
 			<h2 class="player2-name">Player Two</h2>
-			<p>Total Score: <span id="player2-total">0</span></p>
-			<p>This round: <span id="player2-round">0</span></p>
 			<p>Last roll: <span id="player2-roll">0</span></p>
+			<p>This round: <span id="player2-round">0</span></p>			
+			<p>Total Score: <span id="player2-total">0</span></p>
 		</div>
 	</div>
 	<div class="two columns button-container add-margin offset-by-one end">

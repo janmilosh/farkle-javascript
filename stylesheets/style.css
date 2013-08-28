@@ -81,13 +81,14 @@ h1.site-title {
 .panel h2 {color: #fff;
 	font-size: 24px;
 	margin-top: 0;
+	margin-bottom: 7px;
 }
 
 .button-container h2 {
 	margin-top: 5px;
 }
 .add-margin {
-	margin-top: 25px;
+	margin-top: -20px;
 }
 .panel {
 	padding: 15px 15px 5px;
@@ -130,7 +131,7 @@ p#instructions {
 .player1 p, .player2 p {
 	color: #5FF900;
 	font-size: 20px;
-	margin-bottom: 8px;
+	margin-bottom: 7px;
 }
 .rules p {
 	font-size: 15px;

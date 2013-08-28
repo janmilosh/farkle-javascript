@@ -18,20 +18,23 @@ player1.bankScore = false;
 player2.bankScore = false;
 player1.name = "Player One";
 player2.name = "Player Two";
-var player;
+player1.turn = true;
+player2.turn = false;
+var diceArray = [false,false,false,false,false,false]; // scoring array
+//var firstClick = true;
+var onePlayerVisited = false;
 var roundScore;
-var firstClick = true;
-var playerDice = [];	// scoring array
+//var playerDice = [];	
 // ---------------------------------------------------------
 //             toggle instructions on click
 // ---------------------------------------------------------
-$(function() {
+$(document).ready(function() {
 	$("#rules").click(function(){
 		$("aside").slideToggle("slow", function(){
 			$('#rules').text($(this).is(':hidden')? 'Show instructions' : 'Hide instructions');
 		});
 	});
-}); 
+});
 // ---------------------------------------------------------
 //      function to give instructions during play
 // ---------------------------------------------------------
@@ -43,11 +46,10 @@ function instruct() {
 // ---------------------------------------------------------
 function onePlayer() {
 	player2.name = "The House";
-	$(document).ready(function() {	
-		$("#singular-plural").text("name");
-		$(".player2-name").text(player2.name);
-		$("#one-player").fadeOut("slow");
-	});
+	$("#singular-plural").text("name");
+	$(".player2-name").text(player2.name);
+	$("#one-player").fadeOut("slow");
+	onePlayerVisited = true;
 }
 // ---------------------------------------------------------
 //       function to allow players to personalize game
@@ -67,12 +69,15 @@ function addNames() {
 	if (player2.name.substring(0,1) === " " || player2.name === "") {
 		player2.name = "Player Two"		//input default values if needed
 	}
+	if (player1.turn === true) {
+		$("#instructions").text(player1.name + ": start your round by rolling the dice.");
+	} else {
+		$("#instructions").text(player2.name + ": start your round by rolling the dice.");
+	}
+
 	$(".player1-name").text(player1.name);
 	$("#current-name").text(player1.name);
 	$(".player2-name").text(player2.name);
-	player1.turn = true;
-  roundScore = round(player1.name);
-  firstClick = false;
 }
 // ---------------------------------------------------------
 //       function for ending game with page reload
@@ -99,7 +104,7 @@ function selectDice() {
 // ---------------------------------------------------------
 //              function to update dice images
 // ---------------------------------------------------------
-function updateImage(diceArray) {
+function updateImage() {
 	var dieId;
 	var dieImage;																//declare a variable for the die id
 	for (var i = 0; i < 6; i++) {
@@ -122,67 +127,60 @@ function updateImage(diceArray) {
 			$(dieId).attr("src", dieImage);
 		}
 	}
-		$("#debug").append("<p>in updateImage: " + diceArray[0]+", "+diceArray[1]+", "+diceArray[2]+", "+diceArray[3]+", "+diceArray[4]+", "+diceArray[5]+"</p>");
+	$("#instructions").text("Select scoring dice and roll, or bank to end round.")
 
-}
-// ---------------------------------------------------------
-//                function to start game 
-//          if Roll Dice button is clicked first
-// ---------------------------------------------------------
-function firstRoll() {
-	$("#debug").append("<p>in firstRoll function, firstClick = " + firstClick + "</p>");
-	if (firstClick === true) {
-		$("#one-player").fadeOut("slow");
-		player1.turn = true;
-		roundScore = round(player1.name);
-	}
+	$("#debug").append("<p>in updateImage: " + diceArray[0]+", "+diceArray[1]+", "+diceArray[2]+", "+diceArray[3]+", "+diceArray[4]+", "+diceArray[5]+"</p>");
+	
 }
 // ---------------------------------------------------------
 //                 function to roll dice
 // ---------------------------------------------------------
-function rollDice(diceArray) {
-$("#debug").append("<p>in rollDice function</p>")
-	if (firstClick === false) {
-		$("#roll-button").on("click", function() { //when the roll button is clicked
+function rollDice() {
+	$(document).ready(function() {
+		if (onePlayerVisited === false) {
+			$("#one-player").fadeOut("slow");
+			onePlayerVisited = true;
+		}
+		$("#debug").append("<p>in rollDice function</p>") 	//for the case of player clicking roll dice before entering names
+			
 			for (var i = 0; i < 6; i++) {						//loop through the dice
 				if (diceArray[i] === false) {					//roll die that are rollable (false)
 					diceArray[i] = Math.floor((Math.random() * 6) + 1); //rolled dice get new numbers
-		  	}
-			}
-		});
-	} else {  																//for the case of player clicking roll dice before entering names
-		for (var i = 0; i < 6; i++) {						//loop through the dice
-			if (diceArray[i] === false) {					//roll die that are rollable (false)
-				diceArray[i] = Math.floor((Math.random() * 6) + 1); //rolled dice get new numbers
-	  	}
+		  }
 		}
-		firstClick = false; 										//set to false after the first roll
-	}
-	updateImage(diceArray);
-	return diceArray;
+		$("#debug").append("<p>in rollDice, after rolling: "+diceArray[0]+", "+diceArray[1]+", "+diceArray[2]+", "+diceArray[3]+", "+diceArray[4]+", "+diceArray[5]+"</p>");
+
+			updateImage(diceArray);
+			return diceArray;
+	});	
 }
 // ---------------------------------------------------------
 //              function to complete a round
 // ---------------------------------------------------------
-function round(player) {
-	//alert(player);
-	$("#roll-button").prop('onclick',null); //disable onclick function 'firstRoll' - no longer needed
+function round() {
+	
 	roundScore = 0;
-	playerDice = [false,false,false,false,false,false];
-	$("#debug").append("<p>"+"in round, before rolling: " + playerDice[0]+", "+playerDice[1]+", "+playerDice[2]+", "+playerDice[3]+", "+playerDice[4]+", "+playerDice[5] +"</p>");
+	
+	$("#debug").append("<p>"+"in round, before rolling: " + diceArray[0]+", "+diceArray[1]+", "+diceArray[2]+", "+diceArray[3]+", "+diceArray[4]+", "+diceArray[5] +"</p>");
 
-	playerDice = rollDice(playerDice);
 
-$("#debug").append("<p>in round, after rolling: "+playerDice[0]+", "+playerDice[1]+", "+playerDice[2]+", "+playerDice[3]+", "+playerDice[4]+", "+playerDice[5]+"</p>");
-$("#instructions").text("Select scoring dice and roll, or bank to end round.")
 
+	$("#instructions").text("Select scoring dice and roll, or bank to end round.")
+	
 }
 // ---------------------------------------------------------
-//                       Begin game
+//        function to switch players and compare scores
 // ---------------------------------------------------------
-$(document).ready(function() {
+function switchPlayer() {
   $("#instructions").fadeTo(1000, 0.4).fadeTo(1000, 1) //a couple of fades to draw
   	.fadeTo(1000, 0.4).fadeTo(1000, 1);		         //attention to the instructions
+		
+	$("#debug").append("<p>*!*! before firstClick = " + firstClick + "</p>");
+	
+	$("#debug").append("<p>*!*! after first click: "+playerDice[0]+", "+playerDice[1]+", "+playerDice[2]+", "+playerDice[3]+", "+playerDice[4]+", "+playerDice[5]+"</p>");
+	$("#debug").append("<p>*!*! firstClick = " + firstClick + "</p>");
+
+
   //***** tally score and switch turns only if someone has completed a round *****
   if (player1.bankScore === true || player2.bankScore === true) {
 	  do {
@@ -211,4 +209,4 @@ $(document).ready(function() {
 
 	  } while((player1.score < 10000) && (player2.score < 10000));
 	}
-});
+}
