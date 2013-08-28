@@ -1,6 +1,6 @@
 body {
 	background: #000;
-	background: url('../images/moulin.png');
+	background: url('../images/diagmonds.png');
 }
 aside {
 	display: none;
@@ -122,7 +122,7 @@ p.message, p#instructions {
 }
 p#instructions {
 	margin-bottom: 25px;
-	color: orange;
+	color: #7848fe;
 }
 .player1 p, .player2 p {
 	color: #5FF900;

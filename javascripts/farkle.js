@@ -27,8 +27,11 @@ var roundScore;
 //var playerDice = [];	
 // ---------------------------------------------------------
 //             toggle instructions on click
+//     and fade in/out instruction sentence on page load
 // ---------------------------------------------------------
 $(document).ready(function() {
+	 $("#instructions").fadeTo(1000, 0.4).fadeTo(1000, 1) //a couple of fades to draw
+  	.fadeTo(1000, 0.4).fadeTo(1000, 1);		         //attention to the instructions
 	$("#rules").click(function(){
 		$("aside").slideToggle("slow", function(){
 			$('#rules').text($(this).is(':hidden')? 'Show instructions' : 'Hide instructions');
@@ -36,20 +39,16 @@ $(document).ready(function() {
 	});
 });
 // ---------------------------------------------------------
-//      function to give instructions during play
-// ---------------------------------------------------------
-function instruct() {
-
-}
-// ---------------------------------------------------------
 //       function to set single player values
 // ---------------------------------------------------------
 function onePlayer() {
-	player2.name = "The House";
-	$("#singular-plural").text("name");
-	$(".player2-name").text(player2.name);
-	$("#one-player").fadeOut("slow");
-	onePlayerVisited = true;
+	$(document).ready(function() {
+		player2.name = "The House";
+		$("#singular-plural").text("name");
+		$(".player2-name").text(player2.name);
+		$("#one-player").fadeOut("slow");
+		onePlayerVisited = true;
+	});	
 }
 // ---------------------------------------------------------
 //       function to allow players to personalize game
@@ -95,13 +94,20 @@ function reloadPage() {
 function selectDice() {
 	$(this).data("number", 1);
 	$("img").click(function() {
-    	$(this).toggleClass("faded");
-    	//go out and evaluate now
-    	var theId = $(this).attr("id");
-    	var theNumber = $(this).data("number")
-    	$("#debug").append("<p>Clicked: " +theId+ ", rolled a " +diceArray[theNumber-1] +"</p>"); 	//for the case of player clicking roll dice before entering names
-
+  	$(this).toggleClass("faded"); 							//toggle the fade class when die is clicked
+  	var theId = $(this).attr("id");							//get the id for the clicked dice
+  	var theNumber = $(this).data("number");			//get the data-number value which corresponds to die position
+  	var theClass = $(this).attr("class");
+  	$("#debug").append("<p>Clicked: " +theId+ ", rolled a " +diceArray[theNumber] + " " + theClass + "</p>"); 	//for the case of player clicking roll dice before entering names
+  	if ($(this).attr("class") === "faded") {		//if clicked die is faded
+  	}	
   }); 	
+}
+// ---------------------------------------------------------
+//       			 function to calculate roll score
+// ---------------------------------------------------------
+function rollScore() {
+
 }
 // ---------------------------------------------------------
 //              function to update dice images
@@ -157,9 +163,9 @@ function rollDice() {
 	});	
 }
 // ---------------------------------------------------------
-//              function to complete a round
+//   function to calculate the score for a roll and a round
 // ---------------------------------------------------------
-function round() {
+function calculateScores() {
 	
 	roundScore = 0;
 	
@@ -174,8 +180,6 @@ function round() {
 //        function to switch players and compare scores
 // ---------------------------------------------------------
 function switchPlayer() {
-  $("#instructions").fadeTo(1000, 0.4).fadeTo(1000, 1) //a couple of fades to draw
-  	.fadeTo(1000, 0.4).fadeTo(1000, 1);		         //attention to the instructions
 		
 	$("#debug").append("<p>*!*! before firstClick = " + firstClick + "</p>");
 	
@@ -183,32 +187,33 @@ function switchPlayer() {
 	$("#debug").append("<p>*!*! firstClick = " + firstClick + "</p>");
 
 
-  //***** tally score and switch turns only if someone has completed a round *****
-  if (player1.bankScore === true || player2.bankScore === true) {
-	  do {
-	  	roundScore = round(player);
-	  	if (player1.turn === true) { // switch players and add the score
-				player1.turn = false;
-				player2.turn = true;
-				player = player2.name;
-				player1.score = player1.score + roundScore;
-				$("#player1-total").text(player1.score);
-				$("#player1-round").text(player1.roundScore);
-				if (player2.name !== "The House") {
-					$("#instructions").text(player2.name + ": start your round by rolling the dice.");
-				}
-			} else {
-				player1.turn = true;
-				player2.turn = false;
-				player = player1.name;
-				player2.score = player2.score + roundScore;
-				$("#player2-total").text(player2.score);
-				$("#player2-round").text(player2.roundScore);
-				$("#instructions").text(player1.name + ": start your round by rolling the dice.");
+   
+  do {
+  	roundScore = round(player);
+  	if (player1.turn === true) { // switch players and add the score
+			player1.turn = false;
+			player2.turn = true;
+			player = player2.name;
+			player1.score = player1.score + roundScore;
+			$("#player1-total").text(player1.score);
+			$("#player1-round").text(roundScore);
+			roundScore = 0;
+			if (player2.name !== "The House") {
+				$("#instructions").text(player2.name + ": start your round by rolling the dice.");
 			}
-			player1.bankScore = false;  //these must be reset after each round
-			player2.bankScore = false;
+		} else {
+			player1.turn = true;
+			player2.turn = false;
+			player = player1.name;
+			player2.score = player2.score + roundScore;
+			$("#player2-total").text(player2.score);
+			$("#player2-round").text(roundScore);
+			roundScore = 0;
+			$("#instructions").text(player1.name + ": start your round by rolling the dice.");
+		}
+		player1.bankScore = false;  //these must be reset after each round
+		player2.bankScore = false;
 
-	  } while((player1.score < 10000) && (player2.score < 10000));
-	}
+  } while((player1.score < 10000) && (player2.score < 10000));
+	
 }
