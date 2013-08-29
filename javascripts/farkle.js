@@ -12,6 +12,7 @@ player1.score = 0;						 // set initial values to zero
 player2.score = 0;
 var roundScore = 0;
 var rollScore = 0;
+var tempScore = 0;
 player1.name = "Player One";
 player2.name = "Player Two";
 player1.turn = true;
@@ -94,30 +95,27 @@ function reloadPage() {
 //            function to initiate dice rolling
 // ---------------------------------------------------------
 function initiateRoll() {
-		if (onePlayerVisited === false) {				//since the player rolled
-			$(document).ready(function() {
+	$(document).ready(function() {
+		$("img").off();												//remove event handlers to start with
+		if (onePlayerVisited === false) {			//since the player rolled
 				$("#one-player").fadeOut("slow");	//no longer need to display the one player button
-			});
 			onePlayerVisited = true;						//so fade out button and set to true so we don't 
-		}																				//try to fade the button out again
-		request = "roll";					//let the gameController know that the player wants to roll
-		rollScore = 0;													//score for the roll resets with a new roll		
-		
-		$("#debug").append("<p>In initiateRoll function.</p>");
-
-		gameController();												//go to the gameController now that the request has been set
+		}																			//try to fade the button out again
+		request = "roll";											//let the gameController know that the player wants to roll
+		gameController();											//go to the gameController now that the request has been set
+	});
 }
 // ---------------------------------------------------------
 //                 function to roll dice
 // ---------------------------------------------------------
 function rollDice() {
-		for (var i = 0; i < 6; i++) {																	//loop through the dice
-			if (diceArray[i].state === 0) {															//roll die that are rollable (state = 0)
-				diceArray[i].value = Math.floor((Math.random() * 6) + 1);	//rolled dice get new numbers
-			} 																													
-	  }
+	for (var i = 0; i < 6; i++) {																	//loop through the dice
+		if (diceArray[i].state === 0) {															//roll die that are rollable (state = 0)
+			diceArray[i].value = Math.floor((Math.random() * 6) + 1);	//rolled dice get new numbers
+		} 																													
+  }
 
-	  $("#debug").append("<p>In rollDice, state? " + diceArray[0].state+", "+diceArray[1].state+", "+diceArray[2].state+", "+diceArray[3].state+", "+diceArray[4].state+", "+diceArray[5].state +"</p>");
+  $("#debug").append("<p>In rollDice, states are: " + diceArray[0].state+", "+diceArray[1].state+", "+diceArray[2].state+", "+diceArray[3].state+", "+diceArray[4].state+", "+diceArray[5].state +"</p>");
 
 }
 // ---------------------------------------------------------
@@ -142,44 +140,42 @@ function updateImage() {
 			}
 			$(diceArray[i].id).attr("src", dieImage);
 	}
-	$("#debug").append("<p>In updateImage function.</p>");
+	$("#debug").append("<p>Just updated images.</p>");
 }
 // ---------------------------------------------------------
-//         function for selecting dice to score
+//         functions for selecting dice to score
 //		and update score for the roll with each selection
 // ---------------------------------------------------------
 function selectDice() {
-		$("img").click(function() {
-			var i = $(this).data("number");																//get the data-number value which corresponds to clicked die's position
-			if (diceArray[i].state === 0 || diceArray[i].state === 1) {		//if not scored on a previous roll
-	  		$(this).toggleClass("faded"); 															//toggle the fade class when die is clicked
-				if (diceArray[i].state === 0) {															//also toggle the state to match 
-					diceArray[i].state = 1;
-				} else {
-					diceArray[i].state = 0;
-				}
-			}
-
-	  	calculateRollScore();						//update the score for this roll with each click
-
-	  	$("#debug").append("<p>" +diceArray[i].id+ ", rolled a " +diceArray[i].value + ", state: " +diceArray[i].state+ "</p>"); 	
-	  });
+	$("img").on("click", imageClick);
 }
+function imageClick() {
+	var i = $(this).data("number");			//get the data-number value which corresponds to clicked die's position
+	if (diceArray[i].state === 0 || diceArray[i].state === 1) {		//if not scored on a previous roll
+		$(this).toggleClass("faded"); 															//toggle the fade class when die is clicked
+		if (diceArray[i].state === 0) {															//also toggle the state to match 
+			diceArray[i].state = 1;
+		} else {
+			diceArray[i].state = 0;
+		}
+	}
+	calculateRollScore();						//update the score for this roll with each click
+
+	$("#debug").append("<p>" +diceArray[i].id+ ", rolled a " +diceArray[i].value + ", state: " +diceArray[i].state+ "</p>"); 	
+}														
 // ---------------------------------------------------------
 //       			 function to calculate roll score
 // ---------------------------------------------------------
 function calculateRollScore() {
+	tempScore = 0;
+	$("#roll-score").text(tempScore);
 	for (var i = 0; i < 6; i++) {							//test out totals, etc.
 		if (diceArray[i].state === 1) {
-			rollScore = rollScore + diceArray[i].value;
+			tempScore = tempScore + diceArray[i].value;
 		}
 	}
-	$("#roll-score").text(rollScore);
-	if (player1.turn === true) {
-		$("#player1-roll").text(rollScore);
-	} else {
-		$("#player2-roll").text(rollScore);
-	}
+	$("#roll-score").text(tempScore);
+	
 }
 // ---------------------------------------------------------
 //                Main game control function
@@ -189,7 +185,16 @@ function gameController() {
 	$("#debug").append("<p>At top of controller</p>");
 	
 	if (request === "roll") {
+		rollScore = tempScore;										//pass off score from last roll
+		if (rollScore === 0) {										//if there was no score in the last roll
+			roundScore = 0;													//the round score is now zero (Farkled)
+		}
 		roundScore = roundScore + rollScore; 			//register score from last roll
+		if (player1.turn === true) {
+			$("#player1-roll").text(rollScore);
+		} else {
+			$("#player2-roll").text(rollScore);
+		}
 		if (player1.turn === true) {							//update display for current player
 			$("#player1-round").text(roundScore);
 		} else {
@@ -198,15 +203,16 @@ function gameController() {
 		for (var i = 0; i < 6; i++) {							//update state for dice previously rolled
 			if (diceArray[i].state === 1) {
 				diceArray[i].state = -1;
-
+				$(diceArray[i].id).removeClass("faded").addClass("more-faded");
 			}
 		}
+		tempScore = 0;
+		$("#roll-score").text(tempScore);
 
 		rollDice();																//roll any dice that can be rolled
-		updateImages();									 					//make images match new dice values
+		updateImage();									 					//make images match new dice values
 		
 		$("#instructions").text("Select scoring dice and roll, or bank to end round.");
-		
 		selectDice();		//allow player to click dice for scoring, calls function to calculate score
 
 	}

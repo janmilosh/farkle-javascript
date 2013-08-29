@@ -23,7 +23,10 @@ img {
 	opacity: 1;
 }
 .faded {
-	opacity: 0.5;
+	opacity: 0.7;
+}
+.more-faded {
+	opacity: 0.2;
 }
 .roll-button a {
 	background: #6F38C2;
