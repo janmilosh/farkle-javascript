@@ -113,9 +113,7 @@ function rollDice() {
 			diceArray[i].value = Math.floor((Math.random() * 6) + 1);	//rolled dice get new numbers
 		} 																													
   }
-
 //  $("#debug").append("<p>In rollDice, states are: " + diceArray[0].state+", "+diceArray[1].state+", "+diceArray[2].state+", "+diceArray[3].state+", "+diceArray[4].state+", "+diceArray[5].state +"</p>");
-
 }
 // ---------------------------------------------------------
 //              function to update dice images
@@ -165,11 +163,78 @@ function imageClick() {
 function calculateRollScore() {
 	tempScore = 0;
 	$("#roll-score").text(tempScore);
+	var ones = [];
+	var twos = [];
+	var threes = [];
+	var fours = [];
+	var fives = [];
+	var sixes = [];
+	var scoreArray = [];
 	for (var i = 0; i < 6; i++) {							//test out totals, etc.
 		if (diceArray[i].state === 1) {
-			tempScore = tempScore + diceArray[i].value;
+			switch (diceArray[i].value) {
+				case 1: ones.push(1);
+								break;
+				case 2: twos.push(2);
+								break;
+				case 3: threes.push(3);
+								break;
+				case 4: fours.push(4);
+								break;
+				case 5: fives.push(5);
+								break;
+				case 6: sixes.push(6);
+								break;
+			}
 		}
 	}
+	switch (ones.length) {
+		case 1: scoreArray[0] = 100; break;
+		case 2: scoreArray[0] = 200; break;
+		case 3: scoreArray[0] = 1000; break;
+		case 4: scoreArray[0] = 2000; break;
+		case 5: scoreArray[0] = 3000; break;
+		case 6: scoreArray[0] = 4000; break;
+		default: scoreArray[0] = 0;
+	}
+	switch (twos.length) {
+		case 3: scoreArray[1] = 200; break;
+		case 4: scoreArray[1] = 400; break;
+		case 5: scoreArray[1] = 600; break;
+		case 6: scoreArray[1] = 800; break;
+		default: scoreArray[1] = 0;
+	}
+	switch (threes.length) {
+		case 3: scoreArray[2] = 300; break;
+		case 4: scoreArray[2] = 600; break;
+		case 5: scoreArray[2] = 900; break;
+		case 6: scoreArray[2] = 1200; break;
+		default: scoreArray[2] = 0;
+	}
+	switch (fours.length) {
+		case 3: scoreArray[3] = 400; break;
+		case 4: scoreArray[3] = 800; break;
+		case 5: scoreArray[3] = 1200; break;
+		case 6: scoreArray[3] = 1600; break;
+		default: scoreArray[3] = 0;
+	}
+	switch (fives.length) {
+		case 1: scoreArray[4] = 50; break;
+		case 2: scoreArray[4] = 100; break;
+		case 3: scoreArray[4] = 500; break;
+		case 4: scoreArray[4] = 1000; break;
+		case 5: scoreArray[4] = 1500; break;
+		case 6: scoreArray[4] = 2000; break;
+		default: scoreArray[4] = 0;
+	}
+	switch (sixes.length) {
+		case 3: scoreArray[5] = 600; break;
+		case 4: scoreArray[5] = 1200; break;
+		case 5: scoreArray[5] = 1800; break;
+		case 6: scoreArray[5] = 2400; break;
+		default: scoreArray[5] = 0;
+	}
+	tempScore = scoreArray[0] + scoreArray[1] + scoreArray[2] + scoreArray[3] + scoreArray[4] + scoreArray[5];
 	$("#roll-score").text(tempScore);
 }
 // ---------------------------------------------------------
@@ -280,12 +345,12 @@ function gameController() {
 			roundScore = 0;
 			lastRound = false;
 	  }
-	  if (player1.score > 15 && lastRound !== true) {
-			$("#instructions").text(player1.name + " topped 10,000. " + player2.name + " gets one last round.");
+	  if (player1.score > 3000 && lastRound !== true) {
+			$("#instructions").text(player1.name + " topped 3,000. " + player2.name + " gets one last round.");
 	  	lastRound = true;
 	  }
-	  if (player2.score > 15 && lastRound !== true) {
-			$("#instructions").text(player2.name + " topped 10,000. " + player1.name + " gets one last round.");
+	  if (player2.score > 3000 && lastRound !== true) {
+			$("#instructions").text(player2.name + " topped 3,000. " + player1.name + " gets one last round.");
 	  	lastRound = true;
 	  }
 	}
