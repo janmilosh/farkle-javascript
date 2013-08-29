@@ -20,6 +20,7 @@ player2.turn = false;
 var request = "none";
 var diceArray = []; 					// array for keeping track of everything
 var onePlayerVisited = false;
+var lastRound = false;
 // ---------------------------------------------------------
 //            Set initial dice array object values        
 //               toggle instructions on click
@@ -31,8 +32,6 @@ $(document).ready(function() {			//set initial values for dice array object
 		diceArray[i].id = "#die" + (i+1);
 		diceArray[i].value = i + 1;
 		diceArray[i].state = 0;
-//		diceArray[i].currentClick = false;
-//		diceArray[i].scored = false;
 	}
 	$("#instructions").fadeTo(1000, 0.4).fadeTo(1000, 1) //a couple of fades to draw
   	.fadeTo(1000, 0.4).fadeTo(1000, 1);		         			//attention to the instructions
@@ -115,7 +114,7 @@ function rollDice() {
 		} 																													
   }
 
-  $("#debug").append("<p>In rollDice, states are: " + diceArray[0].state+", "+diceArray[1].state+", "+diceArray[2].state+", "+diceArray[3].state+", "+diceArray[4].state+", "+diceArray[5].state +"</p>");
+//  $("#debug").append("<p>In rollDice, states are: " + diceArray[0].state+", "+diceArray[1].state+", "+diceArray[2].state+", "+diceArray[3].state+", "+diceArray[4].state+", "+diceArray[5].state +"</p>");
 
 }
 // ---------------------------------------------------------
@@ -140,7 +139,6 @@ function updateImage() {
 			}
 			$(diceArray[i].id).attr("src", dieImage);
 	}
-	$("#debug").append("<p>Just updated images.</p>");
 }
 // ---------------------------------------------------------
 //         functions for selecting dice to score
@@ -160,8 +158,6 @@ function imageClick() {
 		}
 	}
 	calculateRollScore();						//update the score for this roll with each click
-
-	$("#debug").append("<p>" +diceArray[i].id+ ", rolled a " +diceArray[i].value + ", state: " +diceArray[i].state+ "</p>"); 	
 }														
 // ---------------------------------------------------------
 //       			 function to calculate roll score
@@ -175,15 +171,21 @@ function calculateRollScore() {
 		}
 	}
 	$("#roll-score").text(tempScore);
-	
+}
+// ---------------------------------------------------------
+//       		  function to bank a player's score
+// ---------------------------------------------------------
+function bankScore () {
+	$(document).ready(function() {
+		$("img").off();												//remove event handler
+		request = "bank";											//let the gameController know that the player wants to bank
+		gameController();											//go to the gameController now that the request has been set
+	});
 }
 // ---------------------------------------------------------
 //                Main game control function
 // ---------------------------------------------------------
 function gameController() {
-		
-	$("#debug").append("<p>At top of controller</p>");
-	
 	if (request === "roll") {
 		rollScore = tempScore;										//pass off score from last roll
 		if (rollScore === 0) {										//if there was no score in the last roll
@@ -208,42 +210,83 @@ function gameController() {
 		}
 		tempScore = 0;
 		$("#roll-score").text(tempScore);
-
 		rollDice();																//roll any dice that can be rolled
 		updateImage();									 					//make images match new dice values
-		
-		$("#instructions").text("Select scoring dice and roll, or bank to end round.");
+		$("#instructions").text("Select scoring dice, then Roll or Bank.");
 		selectDice();		//allow player to click dice for scoring, calls function to calculate score
-
 	}
-
-/*   
-  do {
-  	roundScore = round(player);
-  	if (player1.turn === true) { // switch players and add the score
+	if (request === "bank") {
+		rollScore = tempScore;										//pass off score from last roll
+		if (rollScore === 0) {										//if there was no score in the last roll
+			roundScore = 0;													//the round score is now zero (Farkled)
+		}
+		tempScore = 0;														//reset the temporary score to zero
+		$("#roll-score").text(tempScore);					//replace the text with zero value
+		roundScore = roundScore + rollScore; 			//register score from last roll
+		$("#instructions").text("Select scoring dice, then Roll or Bank.");
+		for (var i = 0; i < 6; i++) {							//remove faded and more-faded classes
+			diceArray[i].state = 0;
+			$(diceArray[i].id).removeClass("faded").removeClass("more-faded");
+		}
+  	if (player1.turn === true) {  //switch players and add the score
 			player1.turn = false;
 			player2.turn = true;
-			player = player2.name;
 			player1.score = player1.score + roundScore;
 			$("#player1-total").text(player1.score);
-			$("#player1-round").text(roundScore);
+			if (roundScore === 0) {
+				$("#player1-round").text("Farkle!!!");
+			} else {
+				$("#player1-round").text(roundScore);
+			}
 			roundScore = 0;
+			$("#player1-roll").text(rollScore);
 			if (player2.name !== "The House") {
 				$("#instructions").text(player2.name + ": start your round by rolling the dice.");
 			}
+			$("#current-name").text(player2.name);
 		} else {
 			player1.turn = true;
 			player2.turn = false;
-			player = player1.name;
 			player2.score = player2.score + roundScore;
 			$("#player2-total").text(player2.score);
-			$("#player2-round").text(roundScore);
+			if (roundScore === 0) {
+				$("#player2-round").text("Farkle!!!");
+			} else {
+				$("#player2-round").text(roundScore);
+			}
 			roundScore = 0;
+			$("#player2-roll").text(rollScore);
 			$("#instructions").text(player1.name + ": start your round by rolling the dice.");
+			$("#current-name").text(player1.name);
 		}
-		player1.bankScore = false;  //these must be reset after each round
-		player2.bankScore = false;
-
-  } while((player1.score < 10000) && (player2.score < 10000));
-*/	
+	  if (player2.score === player1.score && lastRound === true) {
+			$("#instructions").text("Game over, it's a tie!!!");
+	  	player1.score = 0;
+			player2.score = 0;
+			roundScore = 0;
+			lastRound = false;
+	  }	  
+	  if (player1.score > player2.score && lastRound === true) {
+			$("#instructions").text("Congratulations, " + player1.name + " wins!!!");
+	  	player1.score = 0;
+			player2.score = 0;
+			roundScore = 0;
+			lastRound = false;
+	  }
+	  if (player2.score > player1.score && lastRound === true) {
+			$("#instructions").text("Congratulations, " + player2.name + " wins!!!");
+	  	player1.score = 0;
+			player2.score = 0;
+			roundScore = 0;
+			lastRound = false;
+	  }
+	  if (player1.score > 15 && lastRound !== true) {
+			$("#instructions").text(player1.name + " topped 10,000. " + player2.name + " gets one last round.");
+	  	lastRound = true;
+	  }
+	  if (player2.score > 15 && lastRound !== true) {
+			$("#instructions").text(player2.name + " topped 10,000. " + player1.name + " gets one last round.");
+	  	lastRound = true;
+	  }
+	}
 }
