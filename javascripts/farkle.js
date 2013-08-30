@@ -78,6 +78,7 @@ function addNames() {
 	}
 	$(".player1-name").text(player1.name);
 	$("#current-name").text(player1.name);
+	$("h1").css("color", "#AFF584").text(player1.name + " Rolling")
 	$(".player2-name").text(player2.name);
 }
 // ---------------------------------------------------------
@@ -108,8 +109,9 @@ function initiateRoll() {
 //                 function to roll dice
 // ---------------------------------------------------------
 function rollDice() {
-	for (var i = 0; i < 6; i++) {																	//loop through the dice
+	for (var i = 0; i < 6; i++) {																//loop through the dice
 		if (diceArray[i].state === 0) {															//roll die that are rollable (state = 0)
+			$(diceArray[i].id).removeClass("more-faded");							//if they are faded on the first roll, unfade them
 			diceArray[i].value = Math.floor((Math.random() * 6) + 1);	//rolled dice get new numbers
 		} 																													
   }
@@ -162,7 +164,7 @@ function imageClick() {
 // ---------------------------------------------------------
 function calculateRollScore() {
 	tempScore = 0;
-	$("#roll-score").text(tempScore);
+	$("#roll-score").text(addCommas(tempScore));
 	var ones = [];
 	var twos = [];
 	var threes = [];
@@ -235,7 +237,21 @@ function calculateRollScore() {
 		default: scoreArray[5] = 0;
 	}
 	tempScore = scoreArray[0] + scoreArray[1] + scoreArray[2] + scoreArray[3] + scoreArray[4] + scoreArray[5];
-	$("#roll-score").text(tempScore);
+	$("#roll-score").text(addCommas(tempScore));
+}
+// ---------------------------------------------------------
+//       		  function to add commas to score
+// ---------------------------------------------------------
+function addCommas(nStr) {
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
 }
 // ---------------------------------------------------------
 //       		  function to bank a player's score
@@ -258,14 +274,14 @@ function gameController() {
 		}
 		roundScore = roundScore + rollScore; 			//register score from last roll
 		if (player1.turn === true) {
-			$("#player1-roll").text(rollScore);
+			$("#player1-roll").text(addCommas(rollScore));
 		} else {
-			$("#player2-roll").text(rollScore);
+			$("#player2-roll").text(addCommas(rollScore));
 		}
 		if (player1.turn === true) {							//update display for current player
-			$("#player1-round").text(roundScore);
+			$("#player1-round").text(addCommas(roundScore));
 		} else {
-			$("#player2-round").text(roundScore);
+			$("#player2-round").text(addCommas(roundScore));
 		}
 		for (var i = 0; i < 6; i++) {							//update state for dice previously rolled
 			if (diceArray[i].state === 1) {
@@ -274,7 +290,7 @@ function gameController() {
 			}
 		}
 		tempScore = 0;
-		$("#roll-score").text(tempScore);
+		$("#roll-score").text(addCommas(tempScore));
 		rollDice();																//roll any dice that can be rolled
 		updateImage();									 					//make images match new dice values
 		$("#instructions").text("Select scoring dice, then Roll or Bank.");
@@ -286,45 +302,47 @@ function gameController() {
 			roundScore = 0;													//the round score is now zero (Farkled)
 		}
 		tempScore = 0;														//reset the temporary score to zero
-		$("#roll-score").text(tempScore);					//replace the text with zero value
+		$("#roll-score").text(addCommas(tempScore));					//replace the text with zero value
 		roundScore = roundScore + rollScore; 			//register score from last roll
 		$("#instructions").text("Select scoring dice, then Roll or Bank.");
 		for (var i = 0; i < 6; i++) {							//remove faded and more-faded classes
 			diceArray[i].state = 0;
-			$(diceArray[i].id).removeClass("faded").removeClass("more-faded");
+			$(diceArray[i].id).removeClass("faded").removeClass("more-faded").addClass("more-faded");
 		}
-  	if (player1.turn === true) {  //switch players and add the score
+  	if (player1.turn === true) {  														//switch players and add the score
 			player1.turn = false;
 			player2.turn = true;
 			player1.score = player1.score + roundScore;
-			$("#player1-total").text(player1.score);
+			$("#player1-total").text(addCommas(player1.score));
 			if (roundScore === 0) {
 				$("#player1-round").text("Farkle!!!");
 			} else {
-				$("#player1-round").text(roundScore);
+				$("#player1-round").text(addCommas(roundScore));
 			}
 			roundScore = 0;
-			$("#player1-roll").text(rollScore);
+			$("#player1-roll").text(addCommas(rollScore));
 			if (player2.name !== "The House") {
 				$("#instructions").text(player2.name + ": start your round by rolling the dice.");
 			}
 			$("#current-name").text(player2.name);
+			$("h1").css("color", "#AFF584").text(player2.name + " Rolling")
 		} else {
 			player1.turn = true;
 			player2.turn = false;
 			player2.score = player2.score + roundScore;
-			$("#player2-total").text(player2.score);
+			$("#player2-total").text(addCommas(player2.score));
 			if (roundScore === 0) {
 				$("#player2-round").text("Farkle!!!");
 			} else {
-				$("#player2-round").text(roundScore);
+				$("#player2-round").text(addCommas(roundScore));
 			}
 			roundScore = 0;
-			$("#player2-roll").text(rollScore);
+			$("#player2-roll").text(addCommas(rollScore));
 			$("#instructions").text(player1.name + ": start your round by rolling the dice.");
 			$("#current-name").text(player1.name);
+			$("h1").css("color", "#AFF584").text(player1.name + " Rolling")
 		}
-	  if (player2.score === player1.score && lastRound === true) {
+	  if (player2.score === player1.score && lastRound === true) {			//compare scores to evaluate for a win
 			$("#instructions").text("Game over, it's a tie!!!");
 	  	player1.score = 0;
 			player2.score = 0;
@@ -333,6 +351,7 @@ function gameController() {
 	  }	  
 	  if (player1.score > player2.score && lastRound === true) {
 			$("#instructions").text("Congratulations, " + player1.name + " wins!!!");
+			$("h1").css("color", "#AFF584").text("Congratulations, " + player1.name + " wins!!!")
 	  	player1.score = 0;
 			player2.score = 0;
 			roundScore = 0;
@@ -340,6 +359,7 @@ function gameController() {
 	  }
 	  if (player2.score > player1.score && lastRound === true) {
 			$("#instructions").text("Congratulations, " + player2.name + " wins!!!");
+			$("h1").css("color", "#AFF584").text("Congratulations, " + player2.name + " wins!!!")
 	  	player1.score = 0;
 			player2.score = 0;
 			roundScore = 0;
