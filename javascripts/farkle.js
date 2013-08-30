@@ -292,7 +292,7 @@ function checkForWin() {
 	  }	  
 	  if (player1.score > player2.score && lastRound === true) {
 			$("#instructions").text("Congratulations, " + player1.name + " wins!!!");
-			$("h1").css("color", "#AFF584").text("Congratulations, " + player1.name + " wins!!!")
+			$("#site-title").css("color", "#AFF584").text("Congratulations, " + player1.name + " wins!!!")
 	  	player1.score = 0;
 			player2.score = 0;
 			roundScore = 0;
