@@ -21,6 +21,7 @@ var request = "none";
 var diceArray = []; 					// array for keeping track of everything
 var onePlayerVisited = false;
 var lastRound = false;
+var youHaveHotDice = false;
 // ---------------------------------------------------------
 //            Set initial dice array object values        
 //               toggle instructions on click
@@ -78,7 +79,7 @@ function addNames() {
 	}
 	$(".player1-name").text(player1.name);
 	$("#current-name").text(player1.name);
-	$("h1").css("color", "#AFF584").text(player1.name + " Rolling")
+	$("#site-title").css("color", "#AFF584").text(player1.name + " Rolling")
 	$(".player2-name").text(player2.name);
 }
 // ---------------------------------------------------------
@@ -88,9 +89,9 @@ function addNames() {
 function reloadPage() {
 	location.reload(true);
 }
-//window.onbeforeunload = function() {
-//  return "You are about to quit and start a new game.";
-//};
+window.onbeforeunload = function() {
+ return "You are about to quit and start a new game.";
+};
 // ---------------------------------------------------------
 //            function to initiate dice rolling
 // ---------------------------------------------------------
@@ -115,7 +116,6 @@ function rollDice() {
 			diceArray[i].value = Math.floor((Math.random() * 6) + 1);	//rolled dice get new numbers
 		} 																													
   }
-//  $("#debug").append("<p>In rollDice, states are: " + diceArray[0].state+", "+diceArray[1].state+", "+diceArray[2].state+", "+diceArray[3].state+", "+diceArray[4].state+", "+diceArray[5].state +"</p>");
 }
 // ---------------------------------------------------------
 //              function to update dice images
@@ -158,21 +158,8 @@ function imageClick() {
 		}
 	}
 	calculateRollScore();						//update the score for this roll with each click
-}
-// ---------------------------------------------------------
-//              Function to check for hot dice
-// ---------------------------------------------------------
-function hotDice() {
-	for (var i = 0; i < 6; i++) {
-		if (diceArray[i].state !== -1 || diceArray[i].state !== 1) {
-			
-			$("#debug").append("<p>" + diceArray[i].state + "</p>")
-		}
-	}
-	$("#instructions").text("You have Hot Dice! Keep rolling or bank your score.");
-
-
-}													
+	hotDice();
+}												
 // ---------------------------------------------------------
 //       			 function to calculate roll score
 // ---------------------------------------------------------
@@ -254,6 +241,21 @@ function calculateRollScore() {
 	$("#roll-score").text(addCommas(tempScore));
 }
 // ---------------------------------------------------------
+//              Function to check for hot dice
+// ---------------------------------------------------------
+function hotDice() {
+	var counter = 0;
+	for (var i = 0; i < 6; i++) {
+		if (diceArray[i].state === -1 || diceArray[i].state === 1) {
+			counter++;
+		}
+	}
+	if (counter === 6 && tempScore !== 0) {
+		$("#instructions").text("You have Hot Dice! Keep rolling or bank your score.");
+		youHaveHotDice = true;
+	}
+}	
+// ---------------------------------------------------------
 //       		  function to add commas to score
 // ---------------------------------------------------------
 function addCommas(nStr) {
@@ -311,8 +313,46 @@ function checkForWin() {
 	  if (player2.score > 10000 && lastRound !== true) {
 			$("#instructions").text(player2.name + " topped 10,000. " + player1.name + " gets one last round.");
 	  	lastRound = true;
-	  }}
-
+	  }
+	}
+//----------------------------------------------------------
+//				function to switch players and add score
+//----------------------------------------------------------
+function switchPlayers() {
+	if (player1.turn === true) {
+		player1.turn = false;
+		player2.turn = true;
+		player1.score = player1.score + roundScore;
+		$("#player1-total").text(addCommas(player1.score));
+		if (roundScore === 0) {
+			$("#player1-round").text("Farkle!!!");
+		} else {
+			$("#player1-round").text(addCommas(roundScore));
+		}
+		roundScore = 0;
+		$("#player1-roll").text(addCommas(rollScore));
+		if (player2.name !== "The House") {
+			$("#instructions").text(player2.name + ": start your round by rolling the dice.");
+		}
+		$("#current-name").text(player2.name);
+		$("#site-title").css("color", "#AFF584").text(player2.name + " rolling")
+	} else {
+		player1.turn = true;
+		player2.turn = false;
+		player2.score = player2.score + roundScore;
+		$("#player2-total").text(addCommas(player2.score));
+		if (roundScore === 0) {
+			$("#player2-round").text("Farkle!!!");
+		} else {
+			$("#player2-round").text(addCommas(roundScore));
+		}
+		roundScore = 0;
+		$("#player2-roll").text(addCommas(rollScore));
+		$("#instructions").text(player1.name + ": start your round by rolling the dice.");
+		$("#current-name").text(player1.name);
+		$("#site-title").css("color", "#AFF584").text(player1.name + " Rolling");
+	}
+}
 // ---------------------------------------------------------
 //                Main game control function
 // ---------------------------------------------------------
@@ -322,8 +362,6 @@ function gameController() {
 		if (rollScore === 0) {										//if there was no score in the last roll
 			roundScore = 0;													//the round score is now zero (Farkled)
 		}
-				hotDice();		
-
 		roundScore = roundScore + rollScore; 			//register score from last roll
 		if (player1.turn === true) {
 			$("#player1-roll").text(addCommas(rollScore));
@@ -341,11 +379,22 @@ function gameController() {
 				$(diceArray[i].id).removeClass("faded").addClass("more-faded");
 			}
 		}
+		if (youHaveHotDice === true) {						//if hot dice, reset for continued rolling
+			for (i = 0; i < 6; i++) {
+				diceArray[i].state = 0;
+			}
+		}	
 		tempScore = 0;
 		$("#roll-score").text(addCommas(tempScore));
 		rollDice();																//roll any dice that can be rolled
 		updateImage();									 					//make images match new dice values
-		$("#instructions").text("Select scoring dice, then Roll or Bank.");
+		if (youHaveHotDice === true) {
+			$("#instructions").text("You have Hot Dice! Keep rolling or bank your score.");
+		} else {
+			$("#instructions").text("Select scoring dice, then Roll or Bank.");
+		}
+		youHaveHotDice = false;		//reset the hot dice indicator
+
 		selectDice();		//allow player to click dice for scoring, calls function to calculate score
 	}
 	if (request === "bank") {
@@ -354,46 +403,14 @@ function gameController() {
 			roundScore = 0;													//the round score is now zero (Farkled)
 		}
 		tempScore = 0;														//reset the temporary score to zero
-		$("#roll-score").text(addCommas(tempScore));					//replace the text with zero value
+		$("#roll-score").text(addCommas(tempScore));		//replace the text with zero value
 		roundScore = roundScore + rollScore; 			//register score from last roll
 		$("#instructions").text("Select scoring dice, then Roll or Bank.");
 		for (var i = 0; i < 6; i++) {							//remove faded and more-faded classes
 			diceArray[i].state = 0;
 			$(diceArray[i].id).removeClass("faded").removeClass("more-faded").addClass("more-faded");
 		}
-  	if (player1.turn === true) {  														//switch players and add the score
-			player1.turn = false;
-			player2.turn = true;
-			player1.score = player1.score + roundScore;
-			$("#player1-total").text(addCommas(player1.score));
-			if (roundScore === 0) {
-				$("#player1-round").text("Farkle!!!");
-			} else {
-				$("#player1-round").text(addCommas(roundScore));
-			}
-			roundScore = 0;
-			$("#player1-roll").text(addCommas(rollScore));
-			if (player2.name !== "The House") {
-				$("#instructions").text(player2.name + ": start your round by rolling the dice.");
-			}
-			$("#current-name").text(player2.name);
-			$("h1").css("color", "#AFF584").text(player2.name + " Rolling")
-		} else {
-			player1.turn = true;
-			player2.turn = false;
-			player2.score = player2.score + roundScore;
-			$("#player2-total").text(addCommas(player2.score));
-			if (roundScore === 0) {
-				$("#player2-round").text("Farkle!!!");
-			} else {
-				$("#player2-round").text(addCommas(roundScore));
-			}
-			roundScore = 0;
-			$("#player2-roll").text(addCommas(rollScore));
-			$("#instructions").text(player1.name + ": start your round by rolling the dice.");
-			$("#current-name").text(player1.name);
-			$("h1").css("color", "#AFF584").text(player1.name + " Rolling")
-		}
+		switchPlayers();
 		checkForWin();		//check to see if either player has topped 10,000
 	}
 }

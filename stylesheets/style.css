@@ -13,6 +13,10 @@ a:hover, a:visited, a:focus {
 	color: #7848fe;
 	text-decoration: underline;
 }
+ul {
+	list-style-type: none;
+	color: #AFF584;
+}
 .row.full-width {width: 1220px;}
 .die-container {
 	max-width: 540px;
@@ -71,12 +75,12 @@ p#personalize {
 }
 h1.site-title {
 	text-align: center;
-	color: #fff;
+	color: #D8F0CA;
 	clear: both;
 	margin: 32px 0;
 	font-size: 36px;
 }
-.panel h2 {color: #fff;
+.panel h2 {color: #D8F0CA;
 	font-size: 24px;
 	margin-top: 0;
 	margin-bottom: 7px;
@@ -118,14 +122,14 @@ p.show-hide {
 	margin: 10px 15px 30px;
 }
 p.message, p#instructions {
-	color: #fff;
+	color: #D8F0CA;
 	font-size: 24px;
 	min-height: 28px;
 	margin-left: 15px;
 }
 p#instructions {
 	margin-bottom: 25px;
-	color: #7848fe;
+	color: #AFF584;
 }
 .player1 p, .player2 p {
 	color: #5FF900;
@@ -133,8 +137,16 @@ p#instructions {
 	margin-bottom: 7px;
 }
 .rules p {
-	font-size: 15px;
-	color: #bbb;
+	font-size: 16px;
+	color: #AFF584;
+}
+.rules h1 {
+	font-size: 30px;
+	color: #D8F0CA;
+}
+.rules h2 {
+	font-size: 24px;
+	color: #D8F0CA;
 }
 .rules  {
 	background: #111;

@@ -5,17 +5,13 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 	<meta charset="utf-8" />
-
 	<!-- Set the viewport width to device width for mobile -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 	<title>Farkle Game</title>
-
 	<!-- Included CSS Files (Uncompressed) -->
 	<!--
 	<link rel="stylesheet" href="stylesheets/foundation.css">
 	-->
-
 	<!-- Included CSS Files (Compressed) -->
 	<link rel="stylesheet" href="stylesheets/foundation.min.css">
 	<link rel="stylesheet" href="stylesheets/app.css">
@@ -23,10 +19,9 @@
 	<script src="javascripts/modernizr.foundation.js"></script>
 </head>
 <body>
-
 <header class="row">
 	<div class="twelve columns">
-		<h1 class="site-title">Farkle for Two Players</h2>
+		<h1 id="site-title" class="site-title">Farkle for Two Players</h2>
 	</div>
 </header>
 <div class="row">
@@ -87,10 +82,33 @@
 <div class="row">
 	<aside class="eight columns centered">
 		<div class="rules">
-			<p>Instructions for playing Farkle.</p>
-			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-	</div>
+			<h1 id="rules">Instructions for playing Farkle</h1>
+			<p><em>A prompt for the current action is located on the second line below the dice.</em></p>
+			<h2>Starting the game</h2>
+			<p>After the page loads, or the 'New Game' button is clicked, a prompt for adding the players' names appears. Click this prompt and fill in your names as instructed. You may skip this step by clicking the roll button.</p>
+			<h2>Rolling, selecting, and banking</h2>
+			<p>Your round begins with a roll (click 'Roll Dice'). After rolling, click on the dice that you wish to score. If you would like to continue rolling, click 'Roll Dice' again. Your roll totals will be added together for your round score. If you want to record your score for the round, click 'Bank Score' and your total for the round will be added to your total score. The other player then starts their round by clicking the 'Roll Dice' button.</p>
+			<p>If you select a dice by mistake, you may undo your selection by clicking on it again. The current roll score will update as you click on the dice. <em>Clicking 'Bank Score' when the current roll score is zero will cause you to lose all points for the round and pass the turn to the other player. This is called 'Farkling'.</em></p>
+			<h2>Hot dice</h2>
+			<p>If you are able to score with all six dice, you may continue rolling with six new dice. You will be reminded in the action prompt should this occur. If you roll and fail to score, you will still lose all points for that round, so be careful!</p>
+			<h2>Scoring</h2>
+			<ul>
+				<li>single Five: 50 each</li>
+				<li>single One: 100 each</li>
+				<li>three Ones: 1000</li>
+				<li>three Twos: 200</li>
+				<li>three Threes: 300</li>
+				<li>three Fours: 400</li>
+				<li>three Fives: 500</li>
+				<li>three Sixs: 600</li>
+				<li>four of a kind: multiply by 2</li>
+				<li>five of a kind: multiply by 3</li>
+				<li>six of a kind: multiply by 4</li>
+			</ul>
+			<h2>Winning</h2>
+			<p>Play continues until one player exceeds 10,000 points. The other player then gets one more round. The final score is then calculated and a winner declared. If the scores are equal, a tie is declared.</p>
+			<p><em>For more information about Farkle, please see the <a href="http://en.wikipedia.org/wiki/Farkle" target="_blank">Wikipedia Article</a>.</em></p>
+		</div>
 	</aside>
 </div>
 <footer class="row">
@@ -100,11 +118,8 @@
 </footer>
 <!-- Included JS Files (Compressed) -->
 <script src="javascripts/foundation.min.js"></script>
-
 <!-- Initialize JS Plugins -->
 <script src="javascripts/app.js"></script>
 <script src="javascripts/farkle.js"></script>
-
-  
 </body>
 </html>
