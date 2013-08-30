@@ -24,17 +24,17 @@ If you are able to score with all six dice, you may continue rolling with six ne
 
 ###Scoring
 
-*single Five: 50 each
-*single One: 100 each
-*three Ones: 1000
-*three Twos: 200
-*three Threes: 300
-*three Fours: 400
-*three Fives: 500
-*three Sixs: 600
-*four of a kind: multiply by 2
-*five of a kind: multiply by 3
-*six of a kind: multiply by 4
+* single Five: 50 each
+* single One: 100 each
+* three Ones: 1000
+* three Twos: 200
+* three Threes: 300
+* three Fours: 400
+* three Fives: 500
+* three Sixs: 600
+* four of a kind: multiply by 2
+* five of a kind: multiply by 3
+* six of a kind: multiply by 4
 
 ###Winning
 
