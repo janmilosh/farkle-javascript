@@ -23,27 +23,27 @@ img {
 	opacity: 1;
 }
 .faded {
-	opacity: 0.7;
+	opacity: 0.5;
 }
 .more-faded {
-	opacity: 0.2;
+	opacity: 0.15;
 }
 .roll-button a {
 	background: #6F38C2;
 	color: white;
-	padding: 5px 6px;
+	padding: 6px 8px;
 	border-radius: 5px;
 }
 .bank-button a {
 	background: #62A837;
 	color: white;
-	padding: 5px 6px;
+	padding: 6px 8px;
 	border-radius: 5px;
 }
 .reset a, .one-player a {
 	background: #4d4d4d;
 	color: white;
-	padding: 5px 6px;
+	padding: 6px 8px;
 	border-radius: 5px;
 }
 .roll-button a:hover {
@@ -61,7 +61,7 @@ img {
 }
 .roll-button, .bank-button, .reset, .one-player {
 	text-align: left;
-	font-size: 18px;
+	font-size: 20px;
 	white-space:nowrap;
 }
 p#personalize {
@@ -145,7 +145,7 @@ p#instructions {
 p.promo {
 	color: #7848fe;
 	text-align: center;
-	margin: 100px 0 20px;
+	margin: 90px 0 20px;
 }
 
 @media only screen and (max-width: 700px) {

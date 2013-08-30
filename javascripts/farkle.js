@@ -158,7 +158,21 @@ function imageClick() {
 		}
 	}
 	calculateRollScore();						//update the score for this roll with each click
-}														
+}
+// ---------------------------------------------------------
+//              Function to check for hot dice
+// ---------------------------------------------------------
+function hotDice() {
+	for (var i = 0; i < 6; i++) {
+		if (diceArray[i].state !== -1 || diceArray[i].state !== 1) {
+			
+			$("#debug").append("<p>" + diceArray[i].state + "</p>")
+		}
+	}
+	$("#instructions").text("You have Hot Dice! Keep rolling or bank your score.");
+
+
+}													
 // ---------------------------------------------------------
 //       			 function to calculate roll score
 // ---------------------------------------------------------
@@ -263,6 +277,42 @@ function bankScore () {
 		gameController();											//go to the gameController now that the request has been set
 	});
 }
+//----------------------------------------------------------
+//						function to check for a win
+//----------------------------------------------------------
+function checkForWin() {
+	  if (player2.score === player1.score && lastRound === true) {			//compare scores to evaluate for a win
+			$("#instructions").text("Game over, it's a tie!!!");
+	  	player1.score = 0;
+			player2.score = 0;
+			roundScore = 0;
+			lastRound = false;
+	  }	  
+	  if (player1.score > player2.score && lastRound === true) {
+			$("#instructions").text("Congratulations, " + player1.name + " wins!!!");
+			$("h1").css("color", "#AFF584").text("Congratulations, " + player1.name + " wins!!!")
+	  	player1.score = 0;
+			player2.score = 0;
+			roundScore = 0;
+			lastRound = false;
+	  }
+	  if (player2.score > player1.score && lastRound === true) {
+			$("#instructions").text("Congratulations, " + player2.name + " wins!!!");
+			$("h1").css("color", "#AFF584").text("Congratulations, " + player2.name + " wins!!!")
+	  	player1.score = 0;
+			player2.score = 0;
+			roundScore = 0;
+			lastRound = false;
+	  }
+	  if (player1.score > 10000 && lastRound !== true) {
+			$("#instructions").text(player1.name + " topped 10,000. " + player2.name + " gets one last round.");
+	  	lastRound = true;
+	  }
+	  if (player2.score > 10000 && lastRound !== true) {
+			$("#instructions").text(player2.name + " topped 10,000. " + player1.name + " gets one last round.");
+	  	lastRound = true;
+	  }}
+
 // ---------------------------------------------------------
 //                Main game control function
 // ---------------------------------------------------------
@@ -272,6 +322,8 @@ function gameController() {
 		if (rollScore === 0) {										//if there was no score in the last roll
 			roundScore = 0;													//the round score is now zero (Farkled)
 		}
+				hotDice();		
+
 		roundScore = roundScore + rollScore; 			//register score from last roll
 		if (player1.turn === true) {
 			$("#player1-roll").text(addCommas(rollScore));
@@ -342,36 +394,6 @@ function gameController() {
 			$("#current-name").text(player1.name);
 			$("h1").css("color", "#AFF584").text(player1.name + " Rolling")
 		}
-	  if (player2.score === player1.score && lastRound === true) {			//compare scores to evaluate for a win
-			$("#instructions").text("Game over, it's a tie!!!");
-	  	player1.score = 0;
-			player2.score = 0;
-			roundScore = 0;
-			lastRound = false;
-	  }	  
-	  if (player1.score > player2.score && lastRound === true) {
-			$("#instructions").text("Congratulations, " + player1.name + " wins!!!");
-			$("h1").css("color", "#AFF584").text("Congratulations, " + player1.name + " wins!!!")
-	  	player1.score = 0;
-			player2.score = 0;
-			roundScore = 0;
-			lastRound = false;
-	  }
-	  if (player2.score > player1.score && lastRound === true) {
-			$("#instructions").text("Congratulations, " + player2.name + " wins!!!");
-			$("h1").css("color", "#AFF584").text("Congratulations, " + player2.name + " wins!!!")
-	  	player1.score = 0;
-			player2.score = 0;
-			roundScore = 0;
-			lastRound = false;
-	  }
-	  if (player1.score > 3000 && lastRound !== true) {
-			$("#instructions").text(player1.name + " topped 3,000. " + player2.name + " gets one last round.");
-	  	lastRound = true;
-	  }
-	  if (player2.score > 3000 && lastRound !== true) {
-			$("#instructions").text(player2.name + " topped 3,000. " + player1.name + " gets one last round.");
-	  	lastRound = true;
-	  }
+		checkForWin();		//check to see if either player has topped 10,000
 	}
 }
