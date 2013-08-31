@@ -44,18 +44,6 @@ $(document).ready(function() {			//set initial values for dice array object
 	});
 });
 // ---------------------------------------------------------
-//       function to set single player values
-// ---------------------------------------------------------
-function onePlayer() {
-	$(document).ready(function() {
-		player2.name = "The House";
-		$("#singular-plural").text("name");
-		$(".player2-name").text(player2.name);
-		$("#one-player").fadeOut("slow");
-		onePlayerVisited = true;
-	});	
-}
-// ---------------------------------------------------------
 //       function to allow players to personalize game
 //                   by adding their names
 // ---------------------------------------------------------
@@ -360,6 +348,12 @@ function switchPlayers() {
 //                Main game control function
 // ---------------------------------------------------------
 function gameController() {
+	if (player1.name === null) {
+		player1.name = "Player One";		//input default values if name input was cancelled from alert box
+	}
+	if (player2.name === null) {
+		player2.name = "Player Two";		//input default values if name input was cancelled from alert box
+	}
 	if (request === "roll") {
 		rollScore = tempScore;										//pass off score from last roll
 		if (rollScore === 0) {										//if there was no score in the last roll
@@ -367,9 +361,9 @@ function gameController() {
 		}
 		roundScore = roundScore + rollScore; 			//register score from last roll
 		if (player1.turn === true) {
-			$("#player1-roll").text(addCommas(rollScore));
+			$("#player1-roll").text("0");
 		} else {
-			$("#player2-roll").text(addCommas(rollScore));
+			$("#player2-roll").text("0");
 		}
 		if (player1.turn === true) {							//update display for current player
 			$("#player1-round").text(addCommas(roundScore));
