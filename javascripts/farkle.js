@@ -48,8 +48,8 @@ $(document).ready(function() {			//set initial values for dice array object
 //                   by adding their names
 // ---------------------------------------------------------
 function addNames() {
-	player1.name = prompt("Player one: please enter your name","Player One");
-	player2.name = prompt("Player two: please enter your name","Player Two");
+	player1.name = prompt("Player one: please enter your name");
+	player2.name = prompt("Player two: please enter your name");
 	if (player1.name.substring(0,1) === " " || player1.name === "") {
 		player1.name = "Player One";		//input default values if needed
 	}
