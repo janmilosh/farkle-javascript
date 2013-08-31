@@ -22,6 +22,7 @@ var diceArray = []; 					// array for keeping track of everything
 var onePlayerVisited = false;
 var lastRound = false;
 var youHaveHotDice = false;
+var tempRoundScore;
 // ---------------------------------------------------------
 //            Set initial dice array object values        
 //               toggle instructions on click
@@ -234,6 +235,15 @@ function calculateRollScore() {
 	}
 	tempScore = scoreArray[0] + scoreArray[1] + scoreArray[2] + scoreArray[3] + scoreArray[4] + scoreArray[5];
 	$("#roll-score").text(addCommas(tempScore));
+	if(player1.turn === true) {
+		$("#player1-roll").text(addCommas(tempScore));
+		tempRoundScore = roundScore + tempScore;
+		$("#player1-round").text(addCommas(tempRoundScore));
+	} else {
+		$("#player2-roll").text(addCommas(tempScore));
+		tempRoundScore = roundScore + tempScore;
+		$("#player2-round").text(addCommas(tempRoundScore));
+	}
 }
 // ---------------------------------------------------------
 //              Function to check for hot dice
@@ -278,38 +288,38 @@ function bankScore () {
 //						function to check for a win
 //----------------------------------------------------------
 function checkForWin() {
-	  if (player2.score === player1.score && lastRound === true) {			//compare scores to evaluate for a win
-			$("#instructions").text("Game over, it's a tie!!!");
-	  	player1.score = 0;
-			player2.score = 0;
-			roundScore = 0;
-			lastRound = false;
-	  }	  
-	  if (player1.score > player2.score && lastRound === true) {
-			$("#instructions").text("Congratulations, " + player1.name + " wins!!!");
-			$("#site-title").css("color", "#AFF584").text("Congratulations, " + player1.name + " wins!!!")
-	  	player1.score = 0;
-			player2.score = 0;
-			roundScore = 0;
-			lastRound = false;
-	  }
-	  if (player2.score > player1.score && lastRound === true) {
-			$("#instructions").text("Congratulations, " + player2.name + " wins!!!");
-			$("#site-title").css("color", "#AFF584").text("Congratulations, " + player2.name + " wins!!!")
-	  	player1.score = 0;
-			player2.score = 0;
-			roundScore = 0;
-			lastRound = false;
-	  }
-	  if (player1.score > 10000 && lastRound !== true) {
-			$("#instructions").text(player1.name + " topped 10,000. " + player2.name + " gets one last round.");
-	  	lastRound = true;
-	  }
-	  if (player2.score > 10000 && lastRound !== true) {
-			$("#instructions").text(player2.name + " topped 10,000. " + player1.name + " gets one last round.");
-	  	lastRound = true;
-	  }
-	}
+  if (player2.score === player1.score && lastRound === true) {			//compare scores to evaluate for a win
+		$("#instructions").text("Game over, it's a tie!!!");
+  	player1.score = 0;
+		player2.score = 0;
+		roundScore = 0;
+		lastRound = false;
+  }	  
+  if (player1.score > player2.score && lastRound === true) {
+		$("#instructions").text("Congratulations, " + player1.name + " wins!!!");
+		$("#site-title").css("color", "#AFF584").text("Congratulations, " + player1.name + " wins!!!")
+  	player1.score = 0;
+		player2.score = 0;
+		roundScore = 0;
+		lastRound = false;
+  }
+  if (player2.score > player1.score && lastRound === true) {
+		$("#instructions").text("Congratulations, " + player2.name + " wins!!!");
+		$("#site-title").css("color", "#AFF584").text("Congratulations, " + player2.name + " wins!!!")
+  	player1.score = 0;
+		player2.score = 0;
+		roundScore = 0;
+		lastRound = false;
+  }
+  if (player1.score > 10000 && lastRound !== true) {
+		$("#instructions").text(player1.name + " topped 10,000. " + player2.name + " gets one last round.");
+  	lastRound = true;
+  }
+  if (player2.score > 10000 && lastRound !== true) {
+		$("#instructions").text(player2.name + " topped 10,000. " + player1.name + " gets one last round.");
+  	lastRound = true;
+  }
+}
 //----------------------------------------------------------
 //				function to switch players and add score
 //----------------------------------------------------------
@@ -326,9 +336,7 @@ function switchPlayers() {
 		}
 		roundScore = 0;
 		$("#player1-roll").text(addCommas(rollScore));
-		if (player2.name !== "The House") {
-			$("#instructions").text(player2.name + ": start your round by rolling the dice.");
-		}
+		$("#instructions").text(player2.name + ": start your round by rolling the dice.");
 		$("#current-name").text(player2.name);
 		$("#site-title").css("color", "#AFF584").text(player2.name + " rolling")
 	} else {
@@ -389,7 +397,6 @@ function gameController() {
 			$("#instructions").text("Select scoring dice, then Roll or Bank.");
 		}
 		youHaveHotDice = false;		//reset the hot dice indicator
-
 		selectDice();		//allow player to click dice for scoring, calls function to calculate score
 	}
 	if (request === "bank") {
