@@ -8,6 +8,7 @@ aside {
 a {
 	color: #7848fe;
 	text-decoration: none;
+	font-size: 20px;
 }
 a:hover, a:visited, a:focus {
 	color: #7848fe;
@@ -20,7 +21,7 @@ ul {
 .row.full-width {width: 1220px;}
 .die-container {
 	max-width: 540px;
-	margin-bottom: 20px;
+	margin: 0 auto;
 }
 img {
 	margin: 15px 3px;
@@ -32,41 +33,39 @@ img {
 .more-faded {
 	opacity: 0.15;
 }
-.roll-button a {
-	background: #6F38C2;
+#roll-score {
+	font-size: 26px;
+}
+.roll-score {
+	text-align:center;
+	margin-top: 5px;
+	padding: 2px;
+	background: #111;
+	color: #5FF900;
+	border-radius: 3px;
+	border: 1px solid #444;
+}
+#roll-button, #bank-button {
+	margin: 5px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
 	color: white;
 	padding: 6px 8px;
 	border-radius: 5px;
 }
-.bank-button a {
+#bank-button {
 	background: #62A837;
-	color: white;
-	padding: 6px 8px;
-	border-radius: 5px;
 }
-.reset a, .one-player a {
-	background: #4d4d4d;
-	color: white;
-	padding: 6px 8px;
-	border-radius: 5px;
+#roll-button {
+	background: #6F38C2;
 }
-.roll-button a:hover {
+#roll-button:hover {
 	background: #5D2AAA;
 }
-.bank-button a:hover {
+#bank-button:hover {
 	background: #589930
-}
-.reset a:hover, .one-player a:hover {
-	background: #444;
-}
-.roll-button a:hover, .bank-button a:hover, .reset a:hover, .one-player a:hover, .roll-button a:visited, .bank-button a:visited, .reset a:visited, .one-player a:visited {
-	text-decoration: none;
-	color: #fff;
-}
-.roll-button, .bank-button, .reset, .one-player {
-	text-align: left;
-	font-size: 20px;
-	white-space:nowrap;
 }
 p#personalize {
 	text-align: left;
@@ -85,10 +84,6 @@ h1.site-title {
 	margin-top: 0;
 	margin-bottom: 7px;
 }
-
-.button-container h2 {
-	margin-top: 5px;
-}
 .add-margin {
 	margin-top: -20px;
 }
@@ -99,37 +94,31 @@ h1.site-title {
 	border-radius: 5px;
 	box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
 }
-.score {
-	padding: 5px 8px;
-	background: #282828;
-	color: #5FF900;
-	border-radius: 3px;
-	box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
-}
 p {
 	line-height: 1.2;
 }
 aside p {
 	font-style: normal;
 }
-#debug p{
-	color: orange;
-	font-size: 16px;
-	margin-bottom: 10px;
-}
 p.show-hide {
 	font-size: 20px;
 	margin: 10px 15px 30px;
 }
-p.message, p#instructions {
+p#instructions {
 	color: #D8F0CA;
-	font-size: 24px;
+	font-size: 23px;
 	min-height: 28px;
 	margin-left: 15px;
 }
 p#instructions {
-	margin-bottom: 25px;
+	margin: 5px 15px 20px;
 	color: #AFF584;
+}
+#instructions a {
+	font-size: 23px;
+}
+#rules, #reset {
+	margin-left: 3px;
 }
 .player1 p, .player2 p {
 	color: #5FF900;
@@ -139,6 +128,9 @@ p#instructions {
 .rules p {
 	font-size: 16px;
 	color: #AFF584;
+}
+.rules a {
+	font-size: 16px;
 }
 .rules h1 {
 	font-size: 30px;
@@ -159,24 +151,27 @@ p.promo {
 	text-align: center;
 	margin: 90px 0 20px;
 }
-
+@media only screen and (max-width: 400px) {
+	.die-container {
+		margin-left: 15px;
+	}
+}
 @media only screen and (max-width: 700px) {
 	h1 {
 		font-size: 30px;
 	}
-	.die-container {
-		margin-bottom: 0;
-	}
 	h1.site-title {
 		margin: 20px 0 5px;
-	}
-	.reset {
-		margin-top: 30px;
 	}
 	p.promo {
 		margin: 20px 0;
 	}
-	.add-margin {
-		margin-top: 0;
+	.roll-score {
+		margin: 5px 80px;
+	}
+	#bank-button {
+		margin-top: 15px;
+		margin-bottom: 15px;
 	}
 }
+

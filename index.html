@@ -25,9 +25,7 @@
 	</div>
 </header>
 <div class="row">
-	<div style="position: absolute; left:10px; top:10px;" id="debug">
-	</div>
-	<div class="seven columns offset-by-two">
+	<div class="seven columns centered">
 		<div class="die-container">
 			<img src="images/1.png" alt="die" id="die1" data-number="0">
 			<img src="images/2.png" alt="die" id="die2" data-number="1">
@@ -37,53 +35,57 @@
 			<img src="images/6.png" alt="die" id="die6" data-number="5">
 		</div>
 	</div>
-	<div class="two columns button-container end">
-		<h2>
-			<span class="roll-button"><a href="#" id="roll-button" onclick="initiateRoll()">Roll Dice</a></span>
-			<span class="bank-button"><a href="#" id="bank-button" onclick="bankScore()">Bank Score</a></span>
-		</h2>
+</div>
+<div class="row">
+	<div class="seven columns centered">
+		<div class="five columns">
+			<p  id="roll-button" onclick="initiateRoll()">Roll Dice</p>
+		</div>
+		<div class="five columns push-two">
+			<p id="bank-button" onclick="bankScore()">Bank Score</p>
+		</div>
+		<div class="two columns pull-five">
+			<p class="roll-score" ><span id="roll-score">0</span></p>
+		</div>
+		
 	</div>
 </div>
 <div class="row">
-	<div class="nine columns offset-by-two">
-		<p class="message">Score this roll <span class="score"><span id="roll-score">0</span> points</span></p>
-			<p id="instructions"><a href="#" onclick="addNames()" id="personalize">Click here to add your <span id="singular-plural">names</span>.</a></p>
+	<div class="seven columns centered">
+		<p id="instructions"><a href="#" onclick="addNames()" id="personalize">Click here to add your <span id="singular-plural">names</span>.</a></p>
 	</div>
 </div>
 <div class="row">
-	<div class="three columns offset-by-two player1">
-		<div class="panel">
-			<h2 class="player1-name">Player One</h2>
-			<p>Last roll: <span id="player1-roll">0</span></p>
-			<p>This round: <span id="player1-round">0</span></p>			
-			<p>Total Score: <span id="player1-total">0</span></p>
+	<div class="seven columns centered">
+		<div class="six columns player1">
+			<div class="panel">
+				<h2 class="player1-name">Player One</h2>
+				<p>Last roll: <span id="player1-roll">0</span></p>
+				<p>Round: <span id="player1-round">0</span></p>			
+				<p>Total: <span id="player1-total">0</span></p>
+			</div>
+		</div>
+		<div class="six columns player2">
+			<div class="panel">
+				<h2 class="player2-name">Player Two</h2>
+				<p>Last roll: <span id="player2-roll">0</span></p>
+				<p>Round: <span id="player2-round">0</span></p>			
+				<p>Total: <span id="player2-total">0</span></p>
+			</div>
 		</div>
 	</div>
-	<div class="three columns player2">
-		<div class="panel">
-			<h2 class="player2-name">Player Two</h2>
-			<p>Last roll: <span id="player2-roll">0</span></p>
-			<p>This round: <span id="player2-round">0</span></p>			
-			<p>Total Score: <span id="player2-total">0</span></p>
-		</div>
-	</div>
-	<div class="two columns button-container add-margin offset-by-one end">
-		<h2>
-			<span class="reset"><a href="#" onclick="reloadPage()" id="reset">New Game</a></span>
-			<!--<span class="one-player"><a href="#" onclick="onePlayer()" id="one-player">One Player</a></span>-->
-		</h2>
+</div>
+<div class="row">
+	<div class="seven columns centered">
+		<p class="six columns"><a href="#" id="rules">Show Instructions</a></p>
+		<p class="six columns"><a href="#" onclick="reloadPage()" id="reset">New Game</a></p>
 	</div>
 </div>
 <div class="row">
-	<div class="eight columns centered">
-		<p class="show-hide"><a href="#" id="rules">Show Instructions</a></p>
-	</div>
-</div>
-<div class="row">
-	<aside class="eight columns centered">
+	<aside class="seven columns centered">
 		<div class="rules">
-			<h1 id="rules">Instructions for playing Farkle</h1>
-			<p><em>A prompt for the current action is located on the second line below the dice.</em></p>
+			<h1>Instructions for playing Farkle</h1>
+			<p><em>A prompt for the current action is located below the 'Roll Dice' button.</em></p>
 			<h2>Starting the game</h2>
 			<p>After the page loads, or the 'New Game' button is clicked, a prompt for adding the players' names appears. Click this prompt and fill in your names as instructed. You may skip this step by clicking the 'Roll Dice'.</p>
 			<h2>Rolling, selecting, and banking</h2>

@@ -6,7 +6,7 @@ by Jan Milosh
 
 ##Instructions for playing Farkle
 
-A prompt for the current action is located on the second line below the dice.
+A prompt for the current action is located below the 'Roll Dice' button.
 
 ###Starting the game
 
