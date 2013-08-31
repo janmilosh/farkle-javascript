@@ -39,6 +39,7 @@ img {
 .roll-score {
 	text-align:center;
 	margin-top: 5px;
+	margin: 5px -10px 0;
 	padding: 2px;
 	background: #111;
 	color: #5FF900;
@@ -111,7 +112,7 @@ p#instructions {
 	margin-left: 15px;
 }
 p#instructions {
-	margin: 5px 15px 20px;
+	margin: 15px 15px 20px;
 	color: #AFF584;
 }
 #instructions a {
@@ -156,7 +157,7 @@ p.promo {
 		margin-left: 15px;
 	}
 }
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 767px) {
 	h1 {
 		font-size: 30px;
 	}
