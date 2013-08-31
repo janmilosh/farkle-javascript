@@ -299,11 +299,11 @@ function checkForWin() {
 		roundScore = 0;
 		lastRound = false;
   }
-  if (player1.score > 10000 && lastRound !== true) {
+  if (player1.score >= 10000 && lastRound !== true) {
 		$("#instructions").text(player1.name + " topped 10,000. " + player2.name + " gets one last round.");
   	lastRound = true;
   }
-  if (player2.score > 10000 && lastRound !== true) {
+  if (player2.score >= 10000 && lastRound !== true) {
 		$("#instructions").text(player2.name + " topped 10,000. " + player1.name + " gets one last round.");
   	lastRound = true;
   }
