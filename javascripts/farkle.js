@@ -278,6 +278,7 @@ function bankScore () {
 function checkForWin() {
   if (player2.score === player1.score && lastRound === true) {			//compare scores to evaluate for a win
 		$("#instructions").text("Game over, it's a tie!!!");
+		$("#site-title").css("color", "#AFF584").text("Game over, it's a tie!!!");
   	player1.score = 0;
 		player2.score = 0;
 		roundScore = 0;
