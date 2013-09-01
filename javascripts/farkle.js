@@ -73,9 +73,9 @@ function addNames() {
 function reloadPage() {
 	location.reload(true);
 }
-window.onbeforeunload = function() {
- return "You are about to quit and start a new game.";
-};
+//window.onbeforeunload = function() {
+ //return "You are about to quit and start a new game.";
+//};
 // ---------------------------------------------------------
 //            function to initiate dice rolling
 // ---------------------------------------------------------
