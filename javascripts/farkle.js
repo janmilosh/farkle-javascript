@@ -277,12 +277,13 @@ function bankScore () {
 //----------------------------------------------------------
 function checkForWin() {
   if (player2.score === player1.score && lastRound === true) {			//compare scores to evaluate for a win
-		$("#instructions").text("Game over, it's a tie!!!");
-		$("#site-title").css("color", "#AFF584").text("Game over, it's a tie!!!");
+		$("#instructions").text("Game over. It's a tie!!!");
+		$("#site-title").css("color", "#AFF584").text("Game over. It's a tie!!!");
   	player1.score = 0;
 		player2.score = 0;
 		roundScore = 0;
 		lastRound = false;
+		confetti();
   }	  
   if (player1.score > player2.score && lastRound === true) {
 		$("#instructions").text("Congratulations, " + player1.name + " wins!!!");
@@ -291,6 +292,7 @@ function checkForWin() {
 		player2.score = 0;
 		roundScore = 0;
 		lastRound = false;
+		confetti();
   }
   if (player2.score > player1.score && lastRound === true) {
 		$("#instructions").text("Congratulations, " + player2.name + " wins!!!");
@@ -299,6 +301,7 @@ function checkForWin() {
 		player2.score = 0;
 		roundScore = 0;
 		lastRound = false;
+		confetti();
   }
   if (player1.score >= 10000 && lastRound !== true) {
 		$("#instructions").text(player1.name + " topped 10,000. " + player2.name + " gets one last round.");
@@ -308,6 +311,73 @@ function checkForWin() {
 		$("#instructions").text(player2.name + " topped 10,000. " + player1.name + " gets one last round.");
   	lastRound = true;
   }
+}
+//----------------------------------------------------------
+//       Create clickable area for confetti effect
+//----------------------------------------------------------
+$(document).ready(function() {									//create area in upper right corner to activate confetti
+	var clickableArea = $("<div id='clickable'></div>")	 //manual activation is for demonstration purposes
+	$("body").prepend(clickableArea);
+	$("#clickable").css("position", "absolute")
+		.css("width","50px")
+		.css("height","50px")
+		.css("background","transparent")
+		.css("cursor","pointer");
+	$("#clickable").on("click", function() {
+		confetti();
+	});
+});
+//----------------------------------------------------------
+//                Confetti effect functions
+//----------------------------------------------------------
+function confetti() {								//loop for creating confetti with delay
+	for (var i = 0; i < 300; i++) {
+		setTimeout(function(){
+			addConfetti(i);
+		}, 30 * i);
+  }
+}
+function addConfetti(i) {							//a div is created for each particle
+	var totalTime = 3000;
+	var pageWidth = $(window).width();
+	var pageHeight = $(window).height();
+	var particleBlue = [];
+	var particleGreen = [];
+	var xPositionBlue = [];
+	var yPositionBlue = [];
+	var xPositionGreen = [];
+	var yPositionGreen = [];
+	particleBlue[i] = $("<div class='confettiParticle'></div>");
+	particleGreen[i] = $("<div class='confettiParticle'></div>");
+	xPositionBlue[i] = randomPosition(pageWidth);
+	yPositionBlue[i] = randomPosition(pageHeight);
+	xPositionGreen[i] = randomPosition(pageWidth);
+	yPositionGreen[i] = randomPosition(pageHeight);
+	$("body").prepend(particleBlue[i]);
+	$("body").prepend(particleGreen[i]);
+	$(particleBlue[i]).css("position", "absolute")		//the blue confetti
+		.css("width","4px")
+		.css("height","4px")
+		.css("background","#7848FE")
+		.css("left", xPositionBlue[i])
+		.css("top", yPositionBlue[i])
+		.css("opacity", "0")
+		.css("z-index", "1000").animate({opacity: 1}, 50).animate({top: yPositionBlue[i] + 600, opacity: 0}, 3000);
+	$(particleGreen[i]).css("position", "absolute")		//the green confetti
+		.css("width","4px")
+		.css("height","4px")
+		.css("background","#AFF584")
+		.css("left", xPositionGreen[i])
+		.css("top", yPositionGreen[i])
+		.css("opacity", "0")
+		.css("z-index", "1000").animate({opacity: 1}, 50).animate({top: yPositionGreen[i] + 600, opacity: 0}, 3000);
+	setTimeout(function() {							//Don't leave a mess behind, clean up the confetti!!!
+	  $('.confettiParticle').remove();
+	}, 12100);		
+}
+function randomPosition(dimension) {
+	var position = Math.floor((Math.random() * (dimension - 52)) + 20); //10px margin each side
+	return position;
 }
 //----------------------------------------------------------
 //				function to switch players and add score
