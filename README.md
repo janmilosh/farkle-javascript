@@ -38,4 +38,4 @@ If you are able to score with all six dice, you may continue rolling with six ne
 
 ###Winning
 
-Play continues until one player exceeds 10,000 points. The other player then gets one more round. The final score is then calculated and a winner declared. If the scores are equal, a tie is declared.
+Play continues until one player meets or exceeds 10,000 points. The other player then gets one more round. The final score is then calculated and a winner declared. If the scores are equal, a tie is declared.
